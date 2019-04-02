@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/background">
+    android:background="?attr/background">
 
 
     <android.support.v7.widget.CardView
@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="12dp"
-            android:background="@color/cards">
+            android:background="?attr/cardBackground">
 
 
             <TextView
@@ -29,7 +29,7 @@
                 android:background="@drawable/shape1"
                 android:fontFamily="@font/overpass_semi_bold"
                 android:text="Scheme Category Name"
-                android:textColor="@color/text"
+                android:textColor="?attr/text"
                 android:textSize="20sp" />
 
             <!--<TextView

@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background">
+    android:background="?attr/background">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/background"
+        android:background="?attr/background"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
     </android.support.v7.widget.Toolbar>
 
@@ -36,17 +36,17 @@
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/cards"
+                    android:background="?attr/cardBackground"
                     android:padding="5dp">
 
                     <TextView
                         android:id="@+id/z"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@color/cards"
+                        android:background="?attr/cardBackground"
                         android:fontFamily="@font/overpass_semi_bold"
                         android:text="Year Initiated:"
-                        android:textColor="@color/text"
+                        android:textColor="?attr/text"
                         android:textSize="22sp" />
 
                     <TextView
@@ -56,10 +56,10 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginTop="6dp"
                         android:layout_toEndOf="@+id/z"
-                        android:background="@color/cards"
+                        android:background="?attr/cardBackground"
                         android:fontFamily="@font/overpass_light"
                         android:text="2019"
-                        android:textColor="@color/text"
+                        android:textColor="?attr/text"
                         android:textSize="16sp" />
 
                 </RelativeLayout>
@@ -77,17 +77,17 @@
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/cards"
+                    android:background="?attr/cardBackground"
                     android:padding="5dp">
 
                     <TextView
                         android:id="@+id/a"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@color/cards"
+                        android:background="?attr/cardBackground"
                         android:fontFamily="@font/overpass_semi_bold"
                         android:text="Jurisdiction:"
-                        android:textColor="@color/text"
+                        android:textColor="?attr/text"
                         android:textSize="22sp" />
 
                     <TextView
@@ -95,10 +95,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/a"
-                        android:background="@color/cards"
+                        android:background="?attr/cardBackground"
                         android:fontFamily="@font/overpass_light"
                         android:text="Central Government"
-                        android:textColor="@color/text"
+                        android:textColor="?attr/text"
                         android:textSize="16sp" />
 
                 </RelativeLayout>
@@ -116,17 +116,17 @@
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/cards"
+                    android:background="?attr/cardBackground"
                     android:padding="5dp">
 
                     <TextView
                         android:id="@+id/b"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@color/cards"
+                        android:background="?attr/cardBackground"
                         android:fontFamily="@font/overpass_semi_bold"
                         android:text="Beneficiaries:"
-                        android:textColor="@color/text"
+                        android:textColor="?attr/text"
                         android:textSize="22sp" />
 
                     <TextView
@@ -134,10 +134,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/b"
-                        android:background="@color/cards"
+                        android:background="?attr/cardBackground"
                         android:fontFamily="@font/overpass_light"
                         android:text="Rural Population "
-                        android:textColor="@color/text"
+                        android:textColor="?attr/text"
                         android:textSize="16sp" />
 
                 </RelativeLayout>
@@ -155,17 +155,17 @@
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/cards"
+                    android:background="?attr/cardBackground"
                     android:padding="5dp">
 
                     <TextView
                         android:id="@+id/c"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@color/cards"
+                        android:background="?attr/cardBackground"
                         android:fontFamily="@font/overpass_semi_bold"
                         android:text="Motives:"
-                        android:textColor="@color/text"
+                        android:textColor="?attr/text"
                         android:textSize="22sp" />
 
                     <TextView
@@ -173,10 +173,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/c"
-                        android:background="@color/cards"
+                        android:background="?attr/cardBackground"
                         android:fontFamily="@font/overpass_light"
                         android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                        android:textColor="@color/text"
+                        android:textColor="?attr/text"
                         android:textSize="16sp" />
 
                 </RelativeLayout>
@@ -194,17 +194,17 @@
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/cards"
+                    android:background="?attr/cardBackground"
                     android:padding="5dp">
 
                     <TextView
                         android:id="@+id/d"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@color/cards"
+                        android:background="?attr/cardBackground"
                         android:fontFamily="@font/overpass_semi_bold"
                         android:text="Milestones Acheived:"
-                        android:textColor="@color/text"
+                        android:textColor="?attr/text"
                         android:textSize="22sp" />
 
                     <TextView
@@ -212,10 +212,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/d"
-                        android:background="@color/cards"
+                        android:background="?attr/cardBackground"
                         android:fontFamily="@font/overpass_light"
                         android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                        android:textColor="@color/text"
+                        android:textColor="?attr/text"
                         android:textSize="16sp" />
 
                 </RelativeLayout>
@@ -231,9 +231,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="@color/background"
-            app:itemIconTint="@color/text"
-            app:itemTextColor="@color/text"
+            android:background="?attr/background"
+            app:itemIconTint="?attr/text"
+            app:itemTextColor="?attr/text"
             app:menu="@menu/bottom_navigation_view_menu"
             app:layout_scrollFlags="scroll|enterAlways|snap"
             app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior">

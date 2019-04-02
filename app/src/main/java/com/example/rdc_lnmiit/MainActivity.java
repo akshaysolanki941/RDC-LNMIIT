@@ -2,8 +2,11 @@ package com.example.rdc_lnmiit;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatDelegate;
@@ -23,7 +26,7 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     EditText gov_scheme_editText;
     EditText year_editText;
@@ -34,12 +37,23 @@ public class MainActivity extends AppCompatActivity {
     RadioGroup radioGroup;
     Spinner category_spinner;
     Toolbar toolbar;
+    SharedPreferences sharedPref;
+    String currentTheme;
 
     DatabaseReference databaseReference1; /*databaseReference2*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+      /*  sharedPref = new SettingsActivity().sharedPref;
+        String currentTheme = sharedPref.getString("current_theme", "light");
+        if(currentTheme == "light")
+            setTheme(R.style.AppTheme_Light);
+
+        else
+            setTheme(R.style.AppTheme_Dark);*/
+
         setContentView(R.layout.activity_main);
 
         toolbar = (Toolbar) findViewById(R.id.toolBar);
@@ -72,18 +86,27 @@ public class MainActivity extends AppCompatActivity {
                         addData();
 
                     else
-                        Toast.makeText(MainActivity.this, "Please select Jurisdiction", Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(MainActivity.this, "Please select Jurisdiction", Toast.LENGTH_SHORT).show();
+                        Snackbar.make(findViewById(R.id.relative), "Please select Jurisdiction", Snackbar.LENGTH_SHORT).show();
 
                 }
 
                 else{
-                    Toast.makeText(getApplicationContext(), "No Internet", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), "No Internet", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(findViewById(R.id.relative), "No Internet", Snackbar.LENGTH_SHORT).show();
+
                 }
 
 
             }
         });
     }
+
+    @Override
+    protected void onCreation(@Nullable Bundle savedInstanceState) {
+
+    }
+
 
     private void addData() {
         String category = category_spinner.getSelectedItem().toString();
@@ -105,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
         //databaseReference1.child(category).push().setValue(categoryModel);
         databaseReference1.child(category).child(scheme).setValue(data);
 
-        Toast.makeText(this, "Data Added", Toast.LENGTH_SHORT).show();
+        Snackbar.make(findViewById(R.id.relative), "Data Added", Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
@@ -126,5 +149,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+       // recreate();
     }
 }

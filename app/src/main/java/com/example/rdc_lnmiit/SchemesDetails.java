@@ -1,7 +1,9 @@
 package com.example.rdc_lnmiit;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,15 +11,26 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-public class SchemesDetails extends AppCompatActivity {
+public class SchemesDetails extends BaseActivity {
 
     TextView year, centralorstate, bene, motive, mile;
     BottomNavigationView bottomNavigationView;
     Toolbar toolbar;
+    SharedPreferences sharedPref;
+    String currentTheme;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+      /*  sharedPref = new SettingsActivity().sharedPref;
+        String currentTheme = sharedPref.getString("current_theme", "light");
+        if(currentTheme == "light")
+            setTheme(R.style.AppTheme_Light);
+
+        else
+            setTheme(R.style.AppTheme_Dark);*/
+
         setContentView(R.layout.activity_schemes_details);
 
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
@@ -28,6 +41,7 @@ public class SchemesDetails extends AppCompatActivity {
                 switch (menuItem.getItemId()){
                     case R.id.menu_home:
                         Intent a = new Intent(SchemesDetails.this, CategoriesActivity.class);
+                        a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(a);
                         finish();
                         break;
@@ -35,6 +49,12 @@ public class SchemesDetails extends AppCompatActivity {
                     case R.id.menu_aboutUs:
                         Intent b = new Intent(SchemesDetails.this, AboutUsActivity.class);
                         startActivity(b);
+                        break;
+
+                    case R.id.menu_settings:
+                        Intent c = new Intent(SchemesDetails.this, SettingsActivity.class);
+                        startActivity(c);
+                        finish();
                         break;
                 }
 
@@ -63,5 +83,16 @@ public class SchemesDetails extends AppCompatActivity {
         bene.setText(data.getBene());
         motive.setText(data.getMotive());
         mile.setText(data.getMile());
+    }
+
+    @Override
+    protected void onCreation(@Nullable Bundle savedInstanceState) {
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+       // recreate();
     }
 }

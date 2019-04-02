@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AboutUsActivity"
+    tools:context=".SettingsActivity"
     android:background="?attr/background">
 
     <android.support.v7.widget.Toolbar
@@ -14,5 +14,20 @@
         android:background="?attr/background"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
     </android.support.v7.widget.Toolbar>
+
+    <Switch
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolBar"
+        android:text="Dark Mode"
+        android:fontFamily="@font/overpass_light"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:hapticFeedbackEnabled="true"
+        android:background="?attr/cardBackground"
+        android:textColor="?attr/text"
+        android:padding="10dp"
+        android:layout_marginTop="8dp"
+        android:id="@+id/switch_darkMode"/>
 
 </RelativeLayout>

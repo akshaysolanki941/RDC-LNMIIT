@@ -1,6 +1,7 @@
 package com.example.rdc_lnmiit;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -25,7 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class SchemesActivity extends AppCompatActivity {
+public class SchemesActivity extends BaseActivity {
 
     RecyclerView recycler_scheme;
     DatabaseReference databaseRef, databaseRefDialog;
@@ -35,10 +36,20 @@ public class SchemesActivity extends AppCompatActivity {
     ArrayList<Data> data_list;
     BottomNavigationView bottomNavigationView;
     Toolbar toolbar;
+    SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+       /* sharedPref = new SettingsActivity().sharedPref;
+        String currentTheme = sharedPref.getString("current_theme", "light");
+        if(currentTheme == "light")
+            setTheme(R.style.AppTheme_Light);
+
+        else
+            setTheme(R.style.AppTheme_Dark);*/
+
         setContentView(R.layout.activity_schemes);
 
         toolbar = (Toolbar) findViewById(R.id.toolBar);
@@ -53,6 +64,7 @@ public class SchemesActivity extends AppCompatActivity {
                 switch (menuItem.getItemId()){
                     case R.id.menu_home:
                         Intent a = new Intent(SchemesActivity.this, CategoriesActivity.class);
+                        a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(a);
                         finish();
                         break;
@@ -60,6 +72,12 @@ public class SchemesActivity extends AppCompatActivity {
                     case R.id.menu_aboutUs:
                         Intent b = new Intent(SchemesActivity.this, AboutUsActivity.class);
                         startActivity(b);
+                        break;
+
+                    case R.id.menu_settings:
+                        Intent c = new Intent(SchemesActivity.this, SettingsActivity.class);
+                        startActivity(c);
+                        finish();
                         break;
                 }
 
@@ -83,6 +101,11 @@ public class SchemesActivity extends AppCompatActivity {
 
         databaseRefDialog = FirebaseDatabase.getInstance().getReference("/Data/" + categorySelected/* + "/" + schemeName*/);
         databaseRefDialog.keepSynced(true);
+
+    }
+
+    @Override
+    protected void onCreation(@Nullable Bundle savedInstanceState) {
 
     }
 
@@ -135,6 +158,13 @@ public class SchemesActivity extends AppCompatActivity {
         };
 
        recycler_scheme.setAdapter(firebaseRecyclerAdapter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+      //  recreate();
+
     }
 
     /*public void showDialog(Data d){

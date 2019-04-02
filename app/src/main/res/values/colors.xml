@@ -1,30 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-   <!-- <color name="colorPrimary">#212121</color>
-    <color name="colorPrimaryDark">#000000</color> -->
     <color name="colorAccent">#D81B60</color>
 
-    <!--<color name="colorPrimary">#C3BAAC</color>
-    <color name="colorPrimaryDark">#B0A89C</color>-->
+ <!--Dark theme colours-->
+    <color name="Dark_colorPrimary">#141D26</color>
+    <color name="Dark_colorPrimaryDark">#000000</color>
+    <color name="Dark_background">#141D26</color>
+    <color name="Dark_cardBg">#243447</color>
+    <color name="Dark_textColor">#FFFFFF</color>
+    <color name="Dark_btnBg">#000000</color>
+    <color name="Dark_editText">#000000</color>
+    <color name="Dark_editTextBg">#FFFFFF</color>
 
-    <color name="colorPrimary">#141D26</color>
-    <color name="colorPrimaryDark">#000000</color>
 
-   <!-- <color name="statusBar">#000000</color>
-    <color name="appBar">#212121</color>
-    <color name="background">#303030</color>
-    <color name="cards">#424242</color>
-    <color name="text">#FFFFFF</color> -->
+    <!--Light theme colours-->
+   <!-- <color name="Light_colorPrimary">#C3BAAC</color>
+    <color name="Light_colorPrimaryDark">#B0A89C</color>
+    <color name="Light_background">#EDECE8</color>
+    <color name="Light_cardBg">#FFFFFF</color>
+    <color name="Light_textColor">#000000</color>
+    <color name="Light_btnBg">#000000</color>
+    <color name="Light_editText">#000000</color>
+    <color name="Light_editTextBg">#F1E9DC</color> -->
 
-    <!--<color name="statusBar">#243033</color>
-    <color name="appBar">#3D4A4D</color>
-    <color name="background">#EDECE8</color>
-    <color name="cards">#FFFFFF</color>
-    <color name="text">#000000</color>-->
+   <!-- <color name="Light_colorPrimary">#D4CFCA</color>
+    <color name="Light_colorPrimaryDark">#AEA79C</color>
+    <color name="Light_background">#B9C5C5</color>
+    <color name="Light_cardBg">#E7E5E4</color>
+    <color name="Light_textColor">#000000</color>
+    <color name="Light_btnBg">#000000</color>
+    <color name="Light_editText">#000000</color>
+    <color name="Light_editTextBg">#FFFFFF</color>-->
 
-    <color name="statusBar">#243033</color>
-    <color name="appBar">#3D4A4D</color>
-    <color name="background">#141D26</color>
-    <color name="cards">#243447</color>
-    <color name="text">#FFFFFF</color>
+   <!-- <color name="Light_colorPrimary">#004c8c</color>
+    <color name="Light_colorPrimaryDark">#004c8c</color>
+    <color name="Light_background">#58a5f0</color>
+    <color name="Light_cardBg">#E7E5E4</color>
+    <color name="Light_textColor">#000000</color>
+    <color name="Light_btnBg">#000000</color>
+    <color name="Light_editText">#000000</color>
+    <color name="Light_editTextBg">#FFFFFF</color>-->
+
+    <color name="Light_colorPrimary">#002C3E</color>
+    <color name="Light_colorPrimaryDark">#002C3E</color>
+    <color name="Light_background">#78BCC4</color>
+    <color name="Light_cardBg">#E7E5E4</color>
+    <color name="Light_textColor">#000000</color>
+    <color name="Light_btnBg">#000000</color>
+    <color name="Light_editText">#000000</color>
+    <color name="Light_editTextBg">#FFFFFF</color>
+
 </resources>

@@ -1,26 +1,38 @@
 package com.example.rdc_lnmiit;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Switch;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 
-public class CategoriesActivity extends AppCompatActivity {
+public class CategoriesActivity extends BaseActivity{
 
     RecyclerView rv;
     DatabaseReference mDatabase;
@@ -28,11 +40,31 @@ public class CategoriesActivity extends AppCompatActivity {
     MyAdpater adapter;
     BottomNavigationView bottomNavigationView;
     Toolbar toolbar;
+    SharedPreferences sharedPref;
+    Switch aSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel channel = new NotificationChannel("MyNotifications", "MyNotifications", NotificationManager.IMPORTANCE_DEFAULT);
+
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
+
+        FirebaseMessaging.getInstance().subscribeToTopic("general")
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        String msg = "Successful";
+                        if (!task.isSuccessful()) {
+                            msg = "Failed";
+                        }
+                    }
+                });
 
         toolbar = (Toolbar) findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
@@ -40,16 +72,24 @@ public class CategoriesActivity extends AppCompatActivity {
 
         connected();
 
+        aSwitch = (Switch)findViewById(R.id.switch_darkMode);
+
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
-                switch (menuItem.getItemId()){
+                switch (menuItem.getItemId()) {
 
                     case R.id.menu_aboutUs:
                         Intent b = new Intent(CategoriesActivity.this, AboutUsActivity.class);
                         startActivity(b);
+                        break;
+
+                    case R.id.menu_settings:
+                        Intent c = new Intent(CategoriesActivity.this, SettingsActivity.class);
+                        startActivity(c);
+                        finish();
                         break;
                 }
 
@@ -87,6 +127,19 @@ public class CategoriesActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onCreation(@Nullable Bundle savedInstanceState) {
+
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+
+       //restartActivity();
+
+    }
+
+    @Override
     public void onBackPressed() {
         super.onBackPressed();
         finish();
@@ -102,8 +155,8 @@ public class CategoriesActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch(item.getItemId()){
-            case R.id.add_data_menu :
+        switch (item.getItemId()) {
+            case R.id.add_data_menu:
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 finish();
@@ -112,17 +165,17 @@ public class CategoriesActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void connected(){
+    public void connected() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo networkInfo = cm.getActiveNetworkInfo();
 
-        if(networkInfo != null && networkInfo.isConnected()){
-            Toast.makeText(this, "ONLINE", Toast.LENGTH_SHORT).show();
-        }
-
-        else{
-            Toast.makeText(this, "OFFLINE", Toast.LENGTH_SHORT).show();
+        if (networkInfo != null && networkInfo.isConnected()) {
+           // Toast.makeText(this, "ONLINE", Toast.LENGTH_SHORT).show();
+            Snackbar.make(findViewById(R.id.coo), "Online", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+        } else {
+            //Toast.makeText(this, "OFFLINE", Toast.LENGTH_SHORT).show();
+            Snackbar.make(findViewById(R.id.coo), "Offline", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
         }
     }
 }

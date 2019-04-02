@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/background">
+    android:background="?attr/background">
 
 
 
@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="12dp"
-            android:background="@color/cards">
+            android:background="?attr/cardBackground">
 
             <TextView
                 android:id="@+id/scheme_name"
@@ -29,7 +29,7 @@
                 android:padding="5dp"
                 android:text="Scheme Name"
                 android:background="@drawable/shape1"
-                android:textColor="@color/text"
+                android:textColor="?attr/text"
                 android:textSize="20sp" />
 
         </RelativeLayout>

@@ -1,16 +1,23 @@
 package com.example.rdc_lnmiit;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
+import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends BaseActivity {
+
+    SharedPreferences sharedPref;
+    String currentTheme;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -22,4 +29,10 @@ public class SplashActivity extends AppCompatActivity {
             }
         },2500);
     }
+
+    @Override
+    protected void onCreation(@Nullable Bundle savedInstanceState) {
+
+    }
+
 }

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="text" format="reference"/>
+    <attr name="background" format="reference"/>
+    <attr name="cardBackground" format="reference"/>
+    <attr name="btnBackground" format="reference"/>
+    <attr name="editText" format="reference"/>
+    <attr name="editTextBg" format="reference"/>
+</resources>

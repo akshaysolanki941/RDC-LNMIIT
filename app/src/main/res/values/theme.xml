@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme.Dark" parent="Theme.AppCompat.NoActionBar">
+
+        <item name="colorPrimary">@color/Dark_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/Dark_colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="text">@color/Dark_textColor</item>
+        <item name="background">@color/Dark_background</item>
+        <item name="cardBackground">@color/Dark_cardBg</item>
+        <item name="btnBackground">@color/Dark_btnBg</item>
+        <item name="editText">@color/Dark_editText</item>
+        <item name="editTextBg">@color/Dark_editTextBg</item>
+
+
+    </style>
+
+    <style name="AppTheme.Light" parent="Theme.AppCompat.NoActionBar">
+
+        <item name="colorPrimary">@color/Light_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/Light_colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="text">@color/Light_textColor</item>
+        <item name="background">@color/Light_background</item>
+        <item name="cardBackground">@color/Light_cardBg</item>
+        <item name="btnBackground">@color/Light_btnBg</item>
+        <item name="editText">@color/Light_editText</item>
+        <item name="editTextBg">@color/Light_editTextBg</item>
+
+
+    </style>
+
+</resources>
