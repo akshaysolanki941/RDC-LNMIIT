@@ -7,4 +7,7 @@
     <attr name="btnBackground" format="reference"/>
     <attr name="editText" format="reference"/>
     <attr name="editTextBg" format="reference"/>
+    <attr name="toolbarBg" format="reference"/>
+    <attr name="addData_bg" format="reference"/>
+    <attr name="addBtn_text" format="reference"/>
 </resources>

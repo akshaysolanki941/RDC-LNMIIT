@@ -12,6 +12,9 @@
         <item name="btnBackground">@color/Dark_btnBg</item>
         <item name="editText">@color/Dark_editText</item>
         <item name="editTextBg">@color/Dark_editTextBg</item>
+        <item name="toolbarBg">@color/Dark_toolbarBg</item>
+        <item name="addData_bg">@color/Dark_addData_bg</item>
+        <item name="addBtn_text">@color/Dark_addBtn_text</item>
 
 
     </style>
@@ -27,7 +30,9 @@
         <item name="btnBackground">@color/Light_btnBg</item>
         <item name="editText">@color/Light_editText</item>
         <item name="editTextBg">@color/Light_editTextBg</item>
-
+        <item name="toolbarBg">@color/Light_toolbarBg</item>
+        <item name="addData_bg">@color/Light_addData_bg</item>
+        <item name="addBtn_text">@color/Light_addBtn_text</item>
 
     </style>
 

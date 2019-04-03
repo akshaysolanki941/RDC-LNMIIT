@@ -12,7 +12,7 @@
         android:id="@+id/toolBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/background"
+        android:background="?attr/toolbarBg"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"></android.support.v7.widget.Toolbar>
 
     <ScrollView
@@ -23,7 +23,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="?attr/background"
+            android:background="?attr/addData_bg"
             android:padding="10dp">
 
             <TextView
@@ -214,7 +214,7 @@
                 android:layout_marginTop="30dp"
                 android:background="@drawable/btn_bg"
                 android:text="add"
-                android:textColor="?attr/text" />
+                android:textColor="?attr/addBtn_text" />
 
 
         </RelativeLayout>

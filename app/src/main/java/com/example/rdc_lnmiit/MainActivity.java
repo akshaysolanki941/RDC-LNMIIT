@@ -129,6 +129,13 @@ public class MainActivity extends BaseActivity {
         databaseReference1.child(category).child(scheme).setValue(data);
 
         Snackbar.make(findViewById(R.id.relative), "Data Added", Snackbar.LENGTH_SHORT).show();
+
+        gov_scheme_editText.getText().clear();
+        year_editText.getText().clear();
+        motive_editText.getText().clear();
+        bene_editText.getText().clear();
+        mile_editText.getText().clear();
+        radioGroup.clearCheck();
     }
 
     @Override

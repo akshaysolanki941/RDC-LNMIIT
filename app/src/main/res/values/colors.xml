@@ -11,7 +11,9 @@
     <color name="Dark_btnBg">#000000</color>
     <color name="Dark_editText">#000000</color>
     <color name="Dark_editTextBg">#FFFFFF</color>
-
+    <color name="Dark_toolbarBg">#141D26</color>
+    <color name="Dark_addData_bg">#243447</color>
+    <color name="Dark_addBtn_text">#FFFFFF</color>
 
     <!--Light theme colours-->
    <!-- <color name="Light_colorPrimary">#C3BAAC</color>
@@ -49,5 +51,8 @@
     <color name="Light_btnBg">#000000</color>
     <color name="Light_editText">#000000</color>
     <color name="Light_editTextBg">#FFFFFF</color>
+    <color name="Light_toolbarBg">#1C485A</color>
+    <color name="Light_addData_bg">#78BCC4</color>
+    <color name="Light_addBtn_text">#FFFFFF</color>
 
 </resources>
