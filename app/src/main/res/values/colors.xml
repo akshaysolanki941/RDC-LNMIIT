@@ -43,7 +43,7 @@
     <color name="Light_editText">#000000</color>
     <color name="Light_editTextBg">#FFFFFF</color>-->
 
-    <color name="Light_colorPrimary">#002C3E</color>
+   <!-- <color name="Light_colorPrimary">#002C3E</color>
     <color name="Light_colorPrimaryDark">#002C3E</color>
     <color name="Light_background">#78BCC4</color>
     <color name="Light_cardBg">#E7E5E4</color>
@@ -53,6 +53,20 @@
     <color name="Light_editTextBg">#FFFFFF</color>
     <color name="Light_toolbarBg">#1C485A</color>
     <color name="Light_addData_bg">#78BCC4</color>
+    <color name="Light_addBtn_text">#FFFFFF</color>-->
+
+
+
+    <color name="Light_colorPrimary">#00A8A8</color>
+    <color name="Light_colorPrimaryDark">#324047</color>
+    <color name="Light_background">#EFEFEF</color>
+    <color name="Light_cardBg">#ffffff</color>
+    <color name="Light_textColor">#000000</color>
+    <color name="Light_btnBg">#000000</color>
+    <color name="Light_editText">#000000</color>
+    <color name="Light_editTextBg">#FFFFFF</color>
+    <color name="Light_toolbarBg">#00cece</color>
+    <color name="Light_addData_bg">#00a8a8</color>
     <color name="Light_addBtn_text">#FFFFFF</color>
 
 </resources>

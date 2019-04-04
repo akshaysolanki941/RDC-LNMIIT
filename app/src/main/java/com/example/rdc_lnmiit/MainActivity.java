@@ -14,6 +14,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -87,7 +89,11 @@ public class MainActivity extends BaseActivity {
 
                     else
                        // Toast.makeText(MainActivity.this, "Please select Jurisdiction", Toast.LENGTH_SHORT).show();
-                        Snackbar.make(findViewById(R.id.relative), "Please select Jurisdiction", Snackbar.LENGTH_SHORT).show();
+                        //Snackbar.make(findViewById(R.id.relative), "Please select Jurisdiction", Snackbar.LENGTH_SHORT).show();
+                    {
+                        Animation shake = AnimationUtils.loadAnimation(MainActivity.this, R.anim.shake);
+                        radioGroup.startAnimation(shake);
+                    }
 
                 }
 
