@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -19,7 +20,10 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Switch;
@@ -149,6 +153,12 @@ public class CategoriesActivity extends BaseActivity{
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.menu1, menu);
+
+        MenuItem item = menu.getItem(0);
+        SpannableString s = new SpannableString("Add Data");
+        s.setSpan(new ForegroundColorSpan(getAttributeColor(getApplicationContext(), R.attr.text)), 0, s.length(), 0);
+        item.setTitle(s);
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -177,5 +187,18 @@ public class CategoriesActivity extends BaseActivity{
             //Toast.makeText(this, "OFFLINE", Toast.LENGTH_SHORT).show();
             Snackbar.make(findViewById(R.id.coo), "Offline", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
         }
+    }
+
+    public static int getAttributeColor(Context context, int attributeId) {
+        TypedValue typedValue = new TypedValue();
+        context.getTheme().resolveAttribute(attributeId, typedValue, true);
+        int colorRes = typedValue.resourceId;
+        int color = -1;
+        try {
+            color = context.getResources().getColor(colorRes);
+        } catch (Resources.NotFoundException e) {
+            // Log.w(TAG, "Not found color resource by id: " + colorRes);
+        }
+        return color;
     }
 }

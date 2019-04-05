@@ -59,13 +59,13 @@
 
     <color name="Light_colorPrimary">#00A8A8</color>
     <color name="Light_colorPrimaryDark">#324047</color>
-    <color name="Light_background">#EFEFEF</color>
+    <color name="Light_background">#F3F8FC</color>
     <color name="Light_cardBg">#ffffff</color>
     <color name="Light_textColor">#000000</color>
     <color name="Light_btnBg">#000000</color>
     <color name="Light_editText">#000000</color>
     <color name="Light_editTextBg">#FFFFFF</color>
-    <color name="Light_toolbarBg">#00cece</color>
+    <color name="Light_toolbarBg">#F3F8FC</color>
     <color name="Light_addData_bg">#00a8a8</color>
     <color name="Light_addBtn_text">#FFFFFF</color>
 

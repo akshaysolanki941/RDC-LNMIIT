@@ -4,30 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SettingsActivity"
-    android:background="?attr/background">
+    android:background="?attr/background"
+    tools:context=".SettingsActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/toolbarBg"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-    </android.support.v7.widget.Toolbar>
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:titleTextColor="?attr/text"></android.support.v7.widget.Toolbar>
 
     <Switch
+        android:id="@+id/switch_darkMode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolBar"
-        android:text="Dark Mode"
-        android:fontFamily="@font/overpass_light"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        android:hapticFeedbackEnabled="true"
-        android:background="?attr/cardBackground"
-        android:textColor="?attr/text"
-        android:padding="10dp"
         android:layout_marginTop="8dp"
-        android:id="@+id/switch_darkMode"/>
+        android:background="?attr/cardBackground"
+        android:fontFamily="@font/overpass_light"
+        android:hapticFeedbackEnabled="true"
+        android:padding="10dp"
+        android:text="Dark Mode"
+        android:textColor="?attr/text"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
 </RelativeLayout>

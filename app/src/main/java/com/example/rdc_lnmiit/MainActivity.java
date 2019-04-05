@@ -3,6 +3,8 @@ package com.example.rdc_lnmiit;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.Nullable;
@@ -11,6 +13,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -41,6 +47,7 @@ public class MainActivity extends BaseActivity {
     Toolbar toolbar;
     SharedPreferences sharedPref;
     String currentTheme;
+    Context context;
 
     DatabaseReference databaseReference1; /*databaseReference2*/
 
@@ -148,6 +155,12 @@ public class MainActivity extends BaseActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.menu2, menu);
+
+        MenuItem item = menu.getItem(0);
+        SpannableString s = new SpannableString("Show Data");
+        s.setSpan(new ForegroundColorSpan(getAttributeColor(getApplicationContext(), R.attr.text)), 0, s.length(), 0);
+        item.setTitle(s);
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -168,5 +181,18 @@ public class MainActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
        // recreate();
+    }
+
+    public static int getAttributeColor(Context context, int attributeId) {
+        TypedValue typedValue = new TypedValue();
+        context.getTheme().resolveAttribute(attributeId, typedValue, true);
+        int colorRes = typedValue.resourceId;
+        int color = -1;
+        try {
+            color = context.getResources().getColor(colorRes);
+        } catch (Resources.NotFoundException e) {
+           // Log.w(TAG, "Not found color resource by id: " + colorRes);
+        }
+        return color;
     }
 }

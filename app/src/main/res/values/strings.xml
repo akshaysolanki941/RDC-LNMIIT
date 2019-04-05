@@ -22,4 +22,12 @@
         <item>Miscellaneous schemes</item>
 
     </array>
+
+    <string name="ubaLink">
+        <a href="http://unnatbharatabhiyan.gov.in/">Unnat Bharat Abhiyan</a>
+    </string>
+
+    <string name="lnmiitLink">
+        <a href="https://www.lnmiit.ac.in/">LNMIIT</a>
+    </string>
 </resources>

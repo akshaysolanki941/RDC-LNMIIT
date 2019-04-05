@@ -10,8 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/toolbarBg"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-    </android.support.v7.widget.Toolbar>
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:titleTextColor="?attr/text"></android.support.v7.widget.Toolbar>
 
     <ScrollView
         android:layout_width="wrap_content"
@@ -29,8 +29,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="6dp"
-                android:layout_marginRight="6dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginRight="6dp"
                 android:elevation="25dp"
                 android:padding="8dp"
                 app:cardCornerRadius="8dp">
@@ -72,8 +72,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="6dp"
-                android:layout_marginRight="6dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginRight="6dp"
                 android:elevation="25dp"
                 android:padding="8dp"
                 app:cardCornerRadius="8dp">
@@ -113,8 +113,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="6dp"
-                android:layout_marginRight="6dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginRight="6dp"
                 android:elevation="25dp"
                 android:padding="8dp"
                 app:cardCornerRadius="8dp">
@@ -154,8 +154,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="6dp"
-                android:layout_marginRight="6dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginRight="6dp"
                 android:elevation="25dp"
                 android:padding="8dp"
                 app:cardCornerRadius="8dp">
@@ -195,8 +195,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="6dp"
-                android:layout_marginRight="6dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginRight="6dp"
                 android:layout_marginBottom="8dp"
                 android:elevation="25dp"
                 android:padding="8dp"
@@ -237,17 +237,16 @@
 
     </ScrollView>
 
-        <android.support.design.widget.BottomNavigationView
-            android:id="@+id/bottom_navigation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="?attr/background"
-            app:itemIconTint="?attr/text"
-            app:itemTextColor="?attr/text"
-            app:menu="@menu/bottom_navigation_view_menu"
-            app:layout_scrollFlags="scroll|enterAlways|snap"
-            app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior">
-        </android.support.design.widget.BottomNavigationView>
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="?attr/background"
+        app:itemIconTint="?attr/text"
+        app:itemTextColor="?attr/text"
+        app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
+        app:layout_scrollFlags="scroll|enterAlways|snap"
+        app:menu="@menu/bottom_navigation_view_menu"></android.support.design.widget.BottomNavigationView>
 
 </RelativeLayout>

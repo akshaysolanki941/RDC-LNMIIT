@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="350dp"
+    android:layout_height="400dp"
+    android:layout_gravity="center"
+    android:elevation="25dp"
+    app:cardCornerRadius="8dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/background">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/background">
+
+                <TextView
+                    android:id="@+id/z"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/overpass_light"
+                    android:padding="8dp"
+                    android:text="Rural Development Cell (RDC) is a cell of LNM Institute of Information Technology (LNMIIT) under Unnat Bharat Abhiyan (UBA). Our mission is to empower the nearby rural areas and awaring the village people, hence removing their dependency. We are a dedicated team of students and faculties working fro rural development approved by the Indian Government.\n\nVillage surveys are conducted to re-emphasize the need for field work, engage student in understanding rural realities and design for societal objectives as the basis of higher education.\n\nProjects are to be made for the development of village. Projects are made by analyzing the data collected through village surveys. These projects are funded by the Government of India.\n\nEducational programmes are conducted to inform and guide the vilagers about the various beneficial government schemes through presentations and camps to motivate them for higher studies."
+                    android:textColor="?attr/text"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/lnmiit_link"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/z"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="50dp"
+                    android:fontFamily="@font/overpass_light"
+                    android:padding="8dp"
+                    android:text="@string/lnmiitLink"
+                    android:textColor="?attr/text"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/uba_link"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lnmiit_link"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/overpass_light"
+                    android:padding="8dp"
+                    android:text="@string/ubaLink"
+                    android:textColor="?attr/text"
+                    android:textSize="20sp" />
+
+
+            </RelativeLayout>
+
+        </ScrollView>
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
