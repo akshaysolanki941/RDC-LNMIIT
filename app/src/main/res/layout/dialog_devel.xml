@@ -17,9 +17,9 @@
             android:id="@+id/circleImageView"
             android:layout_width="125dp"
             android:layout_height="130dp"
-            android:src="@drawable/my_photo"
-            android:layout_marginTop="9dp"
             android:layout_marginLeft="4dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/my_photo"
             app:civ_border_color="?attr/text"
             app:civ_border_width="1dp" />
 

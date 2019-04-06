@@ -14,28 +14,32 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Light">
-        <activity android:name=".BaseActivity"></activity>
-        <activity android:name=".SettingsActivity" />
-        <activity android:name=".SplashActivity">
+        <activity android:name=".BaseActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".SettingsActivity" android:screenOrientation="portrait" />
+        <activity android:name=".SplashActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AboutUsActivity" />
-        <activity android:name=".SchemesDetails" />
-        <activity android:name=".SchemesActivity" />
-        <activity android:name=".CategoriesActivity" />
+        <activity android:name=".AboutUsActivity" android:screenOrientation="portrait" />
+        <activity android:name=".SchemesDetails" android:screenOrientation="portrait"/>
+        <activity android:name=".SchemesActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".CategoriesActivity" android:screenOrientation="portrait"/>
         <activity
             android:name=".MainActivity"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait"/>
 
         <service android:name=".MessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
+        <meta-data
+            android:name="firebase_crashlytics_collection_enabled"
+            android:value="true" />
     </application>
 
 </manifest>

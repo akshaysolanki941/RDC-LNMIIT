@@ -55,6 +55,7 @@ public class SchemesActivity extends BaseActivity {
         toolbar = (Toolbar) findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Select Scheme");
+        toolbar.setTitleTextAppearance(this, R.style.toolbar_title_font);
 
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -70,8 +71,10 @@ public class SchemesActivity extends BaseActivity {
                         break;
 
                     case R.id.menu_aboutUs:
-                        Intent b = new Intent(SchemesActivity.this, AboutUsActivity.class);
-                        startActivity(b);
+                        /*Intent b = new Intent(SchemesActivity.this, AboutUsActivity.class);
+                        startActivity(b);*/
+                        BottomSheetDialogAboutUs bottomSheetDialogAboutUs = new BottomSheetDialogAboutUs();
+                        bottomSheetDialogAboutUs.show(getSupportFragmentManager(), "AboutUsBottomSheet");
                         break;
 
                     case R.id.menu_settings:

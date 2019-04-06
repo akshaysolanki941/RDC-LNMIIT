@@ -14,8 +14,9 @@
         <item name="android:textColor">?attr/text</item>
     </style>
     
-
-
+    <style name="toolbar_title_font">
+        <item name="android:fontFamily">@font/ubuntu_regular</item>
+    </style>
 
 
 </resources>

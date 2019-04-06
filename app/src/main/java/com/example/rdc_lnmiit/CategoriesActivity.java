@@ -13,6 +13,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -73,6 +74,7 @@ public class CategoriesActivity extends BaseActivity{
         toolbar = (Toolbar) findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Select Category");
+        toolbar.setTitleTextAppearance(this, R.style.toolbar_title_font);
 
         connected();
 
@@ -86,8 +88,10 @@ public class CategoriesActivity extends BaseActivity{
                 switch (menuItem.getItemId()) {
 
                     case R.id.menu_aboutUs:
-                        Intent b = new Intent(CategoriesActivity.this, AboutUsActivity.class);
-                        startActivity(b);
+                        /*Intent b = new Intent(CategoriesActivity.this, AboutUsActivity.class);
+                        startActivity(b);*/
+                        BottomSheetDialogAboutUs bottomSheetDialogAboutUs = new BottomSheetDialogAboutUs();
+                        bottomSheetDialogAboutUs.show(getSupportFragmentManager(), "AboutUsBottomSheet");
                         break;
 
                     case R.id.menu_settings:
@@ -114,7 +118,7 @@ public class CategoriesActivity extends BaseActivity{
         categories.add("Ministry of power");
         categories.add("Ministry of commerce");
         categories.add("Ministry of skill development and entrepreneurship");
-        categories.add("Ministry of water resources, river development and ganga rejuvenation");
+        categories.add("Ministry of water resources, river development and Ganga rejuvenation");
         categories.add("Ministry of labour and employment");
         categories.add("Ministry of electronics and IT");
         categories.add("Ministry of road transport and waterways");

@@ -68,6 +68,7 @@ public class MainActivity extends BaseActivity {
         toolbar = (Toolbar) findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Add Data");
+        toolbar.setTitleTextAppearance(this, R.style.toolbar_title_font);
 
         FirebaseApp.initializeApp(this);
 

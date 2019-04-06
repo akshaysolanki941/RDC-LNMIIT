@@ -47,8 +47,10 @@ public class SchemesDetails extends BaseActivity {
                         break;
 
                     case R.id.menu_aboutUs:
-                        Intent b = new Intent(SchemesDetails.this, AboutUsActivity.class);
-                        startActivity(b);
+                        /*Intent b = new Intent(SchemesDetails.this, AboutUsActivity.class);
+                        startActivity(b);*/
+                        BottomSheetDialogAboutUs bottomSheetDialogAboutUs = new BottomSheetDialogAboutUs();
+                        bottomSheetDialogAboutUs.show(getSupportFragmentManager(), "AboutUsBottomSheet");
                         break;
 
                     case R.id.menu_settings:
@@ -69,6 +71,7 @@ public class SchemesDetails extends BaseActivity {
         toolbar = (Toolbar) findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(data.getScheme());
+        toolbar.setTitleTextAppearance(this, R.style.toolbar_title_font);
 
         year = (TextView) findViewById(R.id.year);
         centralorstate = (TextView) findViewById(R.id.centralorstate);

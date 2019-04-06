@@ -39,6 +39,7 @@ public class SettingsActivity extends BaseActivity{
         toolbar = (Toolbar) findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Settings");
+        toolbar.setTitleTextAppearance(this, R.style.toolbar_title_font);
 
         switch_darkMode = (Switch) findViewById(R.id.switch_darkMode);
 
