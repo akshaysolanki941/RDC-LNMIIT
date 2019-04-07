@@ -1,76 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="350dp"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:padding="10dp"
-    app:cardBackgroundColor="?attr/background"
-    app:cardCornerRadius="8dp">
+    android:layout_height="match_parent"
+    android:layout_width="375dp"
+    android:orientation="vertical"
+    android:layout_gravity="center_horizontal">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <android.support.v7.widget.CardView
+        android:layout_width="375dp"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent">
+        android:layout_gravity="center"
+        android:padding="10dp"
+        app:cardBackgroundColor="?attr/background"
+        app:cardCornerRadius="8dp">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/circleImageView"
-            android:layout_width="125dp"
-            android:layout_height="130dp"
-            android:layout_marginLeft="4dp"
-            android:layout_centerVertical="true"
-            android:src="@drawable/my_photo"
-            app:civ_border_color="?attr/text"
-            app:civ_border_width="1dp" />
-
-        <TextView
-            android:id="@+id/m"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/circleImageView"
-            android:fontFamily="@font/overpass_semi_bold"
-            android:padding="6dp"
-            android:text="Akshay Solanki"
-            android:textColor="?attr/text"
-            android:textSize="20sp" />
+            android:background="@android:color/transparent"
+            android:id="@+id/rastogi_layout">
 
-        <TextView
-            android:id="@+id/n"
-            android:layout_width="wrap_content"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/circleImageView"
+                android:layout_width="125dp"
+                android:layout_height="130dp"
+                android:layout_marginLeft="4dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/my_photo"
+                app:civ_border_color="?attr/text"
+                app:civ_border_width="1dp" />
+
+            <TextView
+                android:id="@+id/m"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/circleImageView"
+                android:fontFamily="@font/overpass_semi_bold"
+                android:padding="6dp"
+                android:text="Akshay Solanki"
+                android:textColor="?attr/text"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/n"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/m"
+                android:layout_toEndOf="@+id/circleImageView"
+                android:fontFamily="@font/overpass_extralight"
+                android:padding="6dp"
+                android:text="Android Developer"
+                android:textColor="?attr/text"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/o"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/n"
+                android:layout_toEndOf="@+id/circleImageView"
+                android:fontFamily="@font/overpass_extralight"
+                android:padding="6dp"
+                android:singleLine="true"
+                android:text="akshaysolanki941@gmail.com"
+                android:textColor="?attr/text"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/p"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/o"
+                android:layout_toEndOf="@+id/circleImageView"
+                android:fontFamily="@font/overpass_extralight"
+                android:padding="6dp"
+                android:text="+91-8233623549"
+                android:textColor="?attr/text"
+                android:textSize="16sp" />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="10dp"
+        android:layout_marginTop="8dp"
+        app:cardBackgroundColor="?attr/background"
+        app:cardCornerRadius="8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/m"
-            android:layout_toEndOf="@+id/circleImageView"
-            android:fontFamily="@font/overpass_extralight"
-            android:padding="6dp"
-            android:text="Android Developer"
-            android:textColor="?attr/text"
-            android:textSize="16sp" />
+            android:background="@android:color/transparent">
 
-        <TextView
-            android:id="@+id/o"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/n"
-            android:layout_toEndOf="@+id/circleImageView"
-            android:fontFamily="@font/overpass_extralight"
-            android:padding="6dp"
-            android:singleLine="true"
-            android:text="akshaysolanki941@gmail.com"
-            android:textColor="?attr/text"
-            android:textSize="16sp" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/circleImageView_roh"
+                android:layout_width="125dp"
+                android:layout_height="130dp"
+                android:layout_marginLeft="4dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/rohan_gupta"
+                app:civ_border_color="?attr/text"
+                app:civ_border_width="1dp" />
 
-        <TextView
-            android:id="@+id/p"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/o"
-            android:layout_toEndOf="@+id/circleImageView"
-            android:fontFamily="@font/overpass_extralight"
-            android:padding="6dp"
-            android:text="+91-8233623549"
-            android:textColor="?attr/text"
-            android:textSize="16sp" />
+            <TextView
+                android:id="@+id/m_roh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/circleImageView_roh"
+                android:fontFamily="@font/overpass_semi_bold"
+                android:padding="6dp"
+                android:text="Rohan Gupta (Mentor)"
+                android:textColor="?attr/text"
+                android:textSize="20sp" />
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/n_roh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/m_roh"
+                android:layout_toEndOf="@+id/circleImageView_roh"
+                android:fontFamily="@font/overpass_extralight"
+                android:padding="6dp"
+                android:text="Android Developer"
+                android:textColor="?attr/text"
+                android:textSize="16sp" />
 
-</android.support.v7.widget.CardView>
+            <TextView
+                android:id="@+id/o_roh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/n_roh"
+                android:layout_toEndOf="@+id/circleImageView_roh"
+                android:fontFamily="@font/overpass_extralight"
+                android:padding="6dp"
+                android:singleLine="true"
+                android:text="gupta.rohan@live.com"
+                android:textColor="?attr/text"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/p_roh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/o_roh"
+                android:layout_toEndOf="@+id/circleImageView_roh"
+                android:fontFamily="@font/overpass_extralight"
+                android:padding="6dp"
+                android:text="+91-9829661751"
+                android:textColor="?attr/text"
+                android:textSize="16sp" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+</LinearLayout>
