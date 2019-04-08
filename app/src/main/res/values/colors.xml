@@ -14,6 +14,7 @@
     <color name="Dark_toolbarBg">#141D26</color>
     <color name="Dark_addData_bg">#243447</color>
     <color name="Dark_addBtn_text">#FFFFFF</color>
+    <color name="Dark_picSelect_btn_text">#000000</color>
 
     <!--Light theme colours-->
    <!-- <color name="Light_colorPrimary">#C3BAAC</color>
@@ -57,7 +58,7 @@
 
 
 
-    <color name="Light_colorPrimary">#00A8A8</color>
+    <color name="Light_colorPrimary">#324047</color>
     <color name="Light_colorPrimaryDark">#324047</color>
     <color name="Light_background">#F3F8FC</color>
     <color name="Light_cardBg">#ffffff</color>
@@ -68,5 +69,6 @@
     <color name="Light_toolbarBg">#F3F8FC</color>
     <color name="Light_addData_bg">#00a8a8</color>
     <color name="Light_addBtn_text">#FFFFFF</color>
+    <color name="Light_picSelect_btn_text">#FFFFFF</color>
 
 </resources>

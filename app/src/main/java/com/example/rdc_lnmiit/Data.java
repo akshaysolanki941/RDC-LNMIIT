@@ -5,13 +5,13 @@ import android.os.Parcelable;
 
 public class Data implements Parcelable {
 
-    String /*id, */ scheme, year, motive, bene, mile, rg_value;
+    String /*id, */ scheme, year, motive, bene, mile, rg_value, picURL, rg_inOperation;
 
     public Data(){
 
     }
 
-    public Data(/*String id, */ String scheme, String year, String motive, String bene, String mile, String rg_value) {
+    public Data(/*String id, */ String scheme, String year, String motive, String bene, String mile, String rg_value, String picURL, String rg_inOperation) {
         //this.id = id;
         this.scheme = scheme;
         this.year = year;
@@ -19,6 +19,8 @@ public class Data implements Parcelable {
         this.bene = bene;
         this.mile = mile;
         this.rg_value = rg_value;
+        this.picURL = picURL;
+        this.rg_inOperation = rg_inOperation;
     }
 
     /*public String getId() {
@@ -32,6 +34,8 @@ public class Data implements Parcelable {
         bene = in.readString();
         mile = in.readString();
         rg_value = in.readString();
+        picURL = in.readString();
+        rg_inOperation = in.readString();
     }
 
     public static final Creator<Data> CREATOR = new Creator<Data>() {
@@ -70,6 +74,14 @@ public class Data implements Parcelable {
         return rg_value;
     }
 
+    public String getPicURL() {
+        return picURL;
+    }
+
+    public String getRg_inOperation(){
+        return rg_inOperation;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -83,5 +95,7 @@ public class Data implements Parcelable {
         dest.writeString(bene);
         dest.writeString(mile);
         dest.writeString(rg_value);
+        dest.writeString(picURL);
+        dest.writeString(rg_inOperation);
     }
 }

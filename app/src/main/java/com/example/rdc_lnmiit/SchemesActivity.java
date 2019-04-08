@@ -37,25 +37,19 @@ public class SchemesActivity extends BaseActivity {
     BottomNavigationView bottomNavigationView;
     Toolbar toolbar;
     SharedPreferences sharedPref;
+    String YES;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-       /* sharedPref = new SettingsActivity().sharedPref;
-        String currentTheme = sharedPref.getString("current_theme", "light");
-        if(currentTheme == "light")
-            setTheme(R.style.AppTheme_Light);
-
-        else
-            setTheme(R.style.AppTheme_Dark);*/
-
         setContentView(R.layout.activity_schemes);
 
         toolbar = (Toolbar) findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Select Scheme");
         toolbar.setTitleTextAppearance(this, R.style.toolbar_title_font);
+
+        YES = "YES";
 
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -121,8 +115,8 @@ public class SchemesActivity extends BaseActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()){
-                    Data d = ds.getValue(Data.class);
-                    data_list.add(d);
+                    //Data d = ds.getValue(Data.class);
+                    data_list.add(ds.getValue(Data.class));
                 }
 
             }
@@ -140,7 +134,13 @@ public class SchemesActivity extends BaseActivity {
             @Override
             protected void populateViewHolder(final Holder holder, Data model, final int position) {
 
-                holder.scheme_name.setText(model.getScheme());
+                if(model.getRg_inOperation().equals(YES))
+                    holder.scheme_name.setText(model.getScheme());
+
+                else {
+                    holder.itemView.getLayoutParams().height = 0;
+                    holder.itemView.setVisibility(View.GONE);
+                }
 
                 progressBar.setVisibility(View.GONE);
                 loading.setVisibility(View.GONE);

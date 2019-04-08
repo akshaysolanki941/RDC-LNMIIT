@@ -15,6 +15,7 @@
         <item name="toolbarBg">@color/Dark_toolbarBg</item>
         <item name="addData_bg">@color/Dark_addData_bg</item>
         <item name="addBtn_text">@color/Dark_addBtn_text</item>
+        <item name="picSelect_btn_text">@color/Dark_picSelect_btn_text</item>
 
 
     </style>
@@ -33,6 +34,7 @@
         <item name="toolbarBg">@color/Light_toolbarBg</item>
         <item name="addData_bg">@color/Light_addData_bg</item>
         <item name="addBtn_text">@color/Light_addBtn_text</item>
+        <item name="picSelect_btn_text">@color/Light_picSelect_btn_text</item>
 
     </style>
 

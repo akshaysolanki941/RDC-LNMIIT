@@ -78,22 +78,19 @@ public class SchemesDetails extends BaseActivity {
         setSupportActionBar((Toolbar) findViewById(R.id.detail_toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        ImageView logoImageView = findViewById(R.id.detail_logo_image_view);
-        Glide.with(this).load(R.drawable.placeholder).placeholder(R.drawable.placeholder).into(logoImageView);
-
         year = (TextView) findViewById(R.id.year);
         centralorstate = (TextView) findViewById(R.id.centralorstate);
         bene = (TextView) findViewById(R.id.bene);
         motive = (TextView) findViewById(R.id.motive);
         mile = (TextView) findViewById(R.id.mile);
-
-
+        ImageView logoImageView = findViewById(R.id.detail_logo_image_view);
 
         year.setText(data.getYear());
         centralorstate.setText(data.getRg_value());
         bene.setText(data.getBene());
         motive.setText(data.getMotive());
         mile.setText(data.getMile());
+        Glide.with(this).load(data.getPicURL()).placeholder(R.drawable.placeholder).into(logoImageView);
     }
 
     @Override

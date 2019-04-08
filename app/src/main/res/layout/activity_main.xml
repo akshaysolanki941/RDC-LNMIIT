@@ -16,6 +16,24 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:titleTextColor="?attr/text"></android.support.v7.widget.Toolbar>
 
+
+    <ProgressBar
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerInParent="true"
+        android:id="@+id/add_progressBar"/>
+
+    <TextView
+        android:id="@+id/adding"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/add_progressBar"
+        android:layout_centerInParent="true"
+        android:fontFamily="@font/overpass_semi_bold"
+        android:text="Adding...."
+        android:textColor="?attr/text"
+        android:textSize="25sp"/>
+
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -183,10 +201,50 @@
             </RadioGroup>
 
             <TextView
-                android:id="@+id/mile_textView"
+                android:id="@+id/inOperation_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/radio_group"
+                android:layout_marginTop="20dp"
+                android:text="In Operation:"
+                android:textColor="?attr/text"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/rg_inOperation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/inOperation_textView"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <RadioButton
+                    android:id="@+id/rb_yes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="YES"
+                    android:textColor="?attr/text"
+                    android:textSize="17sp" />
+
+                <RadioButton
+                    android:id="@+id/rb_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="NO"
+                    android:textColor="?attr/text"
+                    android:textSize="17sp" />
+
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/mile_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rg_inOperation"
                 android:layout_marginTop="15dp"
                 android:text="Milestones Achieved:"
                 android:textColor="?attr/text"
@@ -205,11 +263,42 @@
                 android:textColor="?attr/editText"
                 android:textColorHint="#A29F9F" />
 
+            <TextView
+                android:id="@+id/pic_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/mile_editText"
+                android:layout_marginTop="15dp"
+                android:text="Select Relevant Photo:"
+                android:textColor="?attr/text"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btn_photo_select"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/pic_textView"
+                android:layout_marginTop="35dp"
+                android:background="@drawable/scheme_pic_btn"
+                android:text="Select Photo"
+                android:textColor="?attr/picSelect_btn_text"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/scheme_imageView"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/pic_textView"
+                android:layout_marginTop="15dp" />
+
             <Button
                 android:id="@+id/btn_submit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/mile_editText"
+                android:layout_below="@+id/scheme_imageView"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="30dp"
