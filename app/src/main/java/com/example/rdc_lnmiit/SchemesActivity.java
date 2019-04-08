@@ -153,6 +153,7 @@ public class SchemesActivity extends BaseActivity {
 
                         Intent intent = new Intent(SchemesActivity.this, SchemesDetails.class);
                         intent.putExtra("SchemesData", data_list.get(position));
+
                         startActivity(intent);
 
                     }

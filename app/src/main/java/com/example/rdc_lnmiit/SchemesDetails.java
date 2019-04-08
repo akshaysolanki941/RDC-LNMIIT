@@ -5,11 +5,15 @@ import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 public class SchemesDetails extends BaseActivity {
 
@@ -68,10 +72,14 @@ public class SchemesDetails extends BaseActivity {
 
         Data data = i.getParcelableExtra("SchemesData");
 
-        toolbar = (Toolbar) findViewById(R.id.toolBar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(data.getScheme());
-        toolbar.setTitleTextAppearance(this, R.style.toolbar_title_font);
+        CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.detail_collapsing_toolbar);
+        collapsingToolbarLayout.setTitle(data.getScheme());
+        collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
+        setSupportActionBar((Toolbar) findViewById(R.id.detail_toolbar));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        ImageView logoImageView = findViewById(R.id.detail_logo_image_view);
+        Glide.with(this).load(R.drawable.placeholder).placeholder(R.drawable.placeholder).into(logoImageView);
 
         year = (TextView) findViewById(R.id.year);
         centralorstate = (TextView) findViewById(R.id.centralorstate);
@@ -97,5 +105,16 @@ public class SchemesDetails extends BaseActivity {
     protected void onResume() {
         super.onResume();
        // recreate();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }

@@ -24,7 +24,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".AboutUsActivity" android:screenOrientation="portrait" />
-        <activity android:name=".SchemesDetails" android:screenOrientation="portrait"/>
+        <activity android:name=".SchemesDetails" android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Material.Light.Dialog.NoActionBar"/>
         <activity android:name=".SchemesActivity" android:screenOrientation="portrait"/>
         <activity android:name=".CategoriesActivity" android:screenOrientation="portrait"/>
         <activity
