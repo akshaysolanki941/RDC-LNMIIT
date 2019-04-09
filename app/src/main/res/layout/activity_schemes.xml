@@ -17,25 +17,10 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_scheme"
+        android:layout_above="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolBar"></android.support.v7.widget.RecyclerView>
-
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
-
-    <TextView
-        android:id="@+id/loading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/progress_bar"
-        android:layout_centerInParent="true"
-        android:fontFamily="@font/overpass_extralight"
-        android:text="Loading...."
-        android:textColor="?attr/text" />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -44,6 +29,7 @@
         android:layout_alignParentBottom="true"
         android:background="?attr/background"
         app:itemIconTint="?attr/text"
+        app:labelVisibilityMode="labeled"
         app:itemTextColor="?attr/text"
         app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
         app:layout_scrollFlags="scroll|enterAlways|snap"

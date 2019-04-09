@@ -88,8 +88,6 @@ public class CategoriesActivity extends BaseActivity{
                 switch (menuItem.getItemId()) {
 
                     case R.id.menu_aboutUs:
-                        /*Intent b = new Intent(CategoriesActivity.this, AboutUsActivity.class);
-                        startActivity(b);*/
                         BottomSheetDialogAboutUs bottomSheetDialogAboutUs = new BottomSheetDialogAboutUs();
                         bottomSheetDialogAboutUs.show(getSupportFragmentManager(), "AboutUsBottomSheet");
                         break;
@@ -98,6 +96,10 @@ public class CategoriesActivity extends BaseActivity{
                         Intent c = new Intent(CategoriesActivity.this, SettingsActivity.class);
                         startActivity(c);
                         finish();
+                        break;
+
+                    case R.id.menu_profile:
+                        startActivity(new Intent(CategoriesActivity.this, ProfileActivity.class));
                         break;
                 }
 

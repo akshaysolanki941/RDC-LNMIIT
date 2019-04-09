@@ -1,12 +1,14 @@
 package com.example.rdc_lnmiit;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.media.Image;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -24,6 +26,7 @@ import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
@@ -37,6 +40,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
@@ -57,7 +61,7 @@ public class MainActivity extends BaseActivity {
     EditText bene_editText;
     EditText mile_editText;
     Button btn_submit, btn_photo_select;
-    ImageView scheme_imageView;
+    ImageView scheme_imageView, loading_gif_imageView;
     RadioGroup radioGroup, rg_inOperation;
     Spinner category_spinner;
     Toolbar toolbar;
@@ -67,6 +71,7 @@ public class MainActivity extends BaseActivity {
     Uri selectedPhotoUri;
     ProgressBar add_progressBar;
     TextView adding;
+    Dialog loading_dialog;
 
     DatabaseReference databaseReference1; /*databaseReference2*/
     StorageReference storageReference;
@@ -83,6 +88,8 @@ public class MainActivity extends BaseActivity {
         toolbar.setTitleTextAppearance(this, R.style.toolbar_title_font);
 
         FirebaseApp.initializeApp(this);
+
+        loading_dialog = new Dialog(this);
 
         databaseReference1 = FirebaseDatabase.getInstance().getReference("Data");
 
@@ -124,6 +131,14 @@ public class MainActivity extends BaseActivity {
                     if (radioGroup.getCheckedRadioButtonId() != -1 && rg_inOperation.getCheckedRadioButtonId() != -1) {
 
                         if(selectedPhotoUri != null) {
+                            loading_dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                            loading_dialog.setContentView(R.layout.loading_dialog);
+                            loading_gif_imageView = (ImageView) loading_dialog.findViewById(R.id.loading_gif_imageView);
+
+                            Glide.with(getApplicationContext()).load(R.drawable.loading).placeholder(R.drawable.loading).into(loading_gif_imageView);
+                            loading_dialog.setCanceledOnTouchOutside(false);
+                            loading_dialog.setCancelable(false);
+                            loading_dialog.show();
                             String filename = UUID.randomUUID().toString();
 
                             storageReference = FirebaseStorage.getInstance().getReference("images/" + filename);
@@ -202,6 +217,9 @@ public class MainActivity extends BaseActivity {
 
 
     private void addData(String picURL) {
+
+
+
         String category = category_spinner.getSelectedItem().toString();
         String scheme = gov_scheme_editText.getText().toString();
         String year = year_editText.getText().toString();
@@ -213,8 +231,6 @@ public class MainActivity extends BaseActivity {
 
         // String id = databaseReference.push().getKey();
 
-        add_progressBar.setVisibility(View.VISIBLE);
-        adding.setVisibility(View.VISIBLE);
 
         CategoryModel categoryModel = new CategoryModel(category);
 
@@ -226,8 +242,6 @@ public class MainActivity extends BaseActivity {
         //databaseReference1.child(category).push().setValue(categoryModel);
         databaseReference1.child(category).child(scheme).setValue(data);
 
-        Snackbar.make(findViewById(R.id.relative), "Data Added", Snackbar.LENGTH_SHORT).show();
-
         gov_scheme_editText.getText().clear();
         year_editText.getText().clear();
         motive_editText.getText().clear();
@@ -237,8 +251,10 @@ public class MainActivity extends BaseActivity {
         rg_inOperation.clearCheck();
         btn_photo_select.setAlpha(1);
         scheme_imageView.setImageDrawable(null);
-        add_progressBar.setVisibility(View.GONE);
-        adding.setVisibility(View.GONE);
+        loading_dialog.dismiss();
+
+        Snackbar.make(findViewById(R.id.relative), "Data Added", Snackbar.LENGTH_SHORT).show();
+
     }
 
 

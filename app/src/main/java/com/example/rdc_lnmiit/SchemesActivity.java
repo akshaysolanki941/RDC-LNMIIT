@@ -1,5 +1,6 @@
 package com.example.rdc_lnmiit;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,10 +14,13 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -38,6 +42,8 @@ public class SchemesActivity extends BaseActivity {
     Toolbar toolbar;
     SharedPreferences sharedPref;
     String YES;
+    Dialog loading_dialog;
+    ImageView loading_gif_imageView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,6 +56,8 @@ public class SchemesActivity extends BaseActivity {
         toolbar.setTitleTextAppearance(this, R.style.toolbar_title_font);
 
         YES = "YES";
+
+        loading_dialog = new Dialog(this);
 
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -76,14 +84,24 @@ public class SchemesActivity extends BaseActivity {
                         startActivity(c);
                         finish();
                         break;
+
+                    case R.id.menu_profile:
+                        startActivity(new Intent(SchemesActivity.this, ProfileActivity.class));
+                        break;
                 }
 
                 return false;
             }
         });
 
-        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
-        loading = (TextView) findViewById(R.id.loading);
+        loading_dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        loading_dialog.setContentView(R.layout.loading_dialog);
+        loading_gif_imageView = (ImageView) loading_dialog.findViewById(R.id.loading_gif_imageView);
+
+        Glide.with(getApplicationContext()).load(R.drawable.loading).placeholder(R.drawable.loading).into(loading_gif_imageView);
+        loading_dialog.setCanceledOnTouchOutside(false);
+        loading_dialog.setCancelable(false);
+        loading_dialog.show();
 
         data_list = new ArrayList<>();
 
@@ -142,8 +160,7 @@ public class SchemesActivity extends BaseActivity {
                     holder.itemView.setVisibility(View.GONE);
                 }
 
-                progressBar.setVisibility(View.GONE);
-                loading.setVisibility(View.GONE);
+                loading_dialog.dismiss();
 
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override

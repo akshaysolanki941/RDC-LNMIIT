@@ -62,6 +62,10 @@ public class SchemesDetails extends BaseActivity {
                         startActivity(c);
                         finish();
                         break;
+
+                    case R.id.menu_profile:
+                        startActivity(new Intent(SchemesDetails.this, ProfileActivity.class));
+                        break;
                 }
 
                 return false;
