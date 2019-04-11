@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
+import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.util.TypedValue;
@@ -128,7 +129,7 @@ public class MainActivity extends BaseActivity {
 
                 if (networkInfo != null && networkInfo.isConnected()) {
 
-                    if (radioGroup.getCheckedRadioButtonId() != -1 && rg_inOperation.getCheckedRadioButtonId() != -1) {
+                    if (radioGroup.getCheckedRadioButtonId() != -1 && rg_inOperation.getCheckedRadioButtonId() != -1 && !TextUtils.isEmpty(gov_scheme_editText.getText()) && !TextUtils.isEmpty(year_editText.getText()) && !TextUtils.isEmpty(motive_editText.getText()) && !TextUtils.isEmpty(bene_editText.getText())) {
 
                         if(selectedPhotoUri != null) {
                             loading_dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -161,10 +162,7 @@ public class MainActivity extends BaseActivity {
                             btn_photo_select.startAnimation(shake);
                         }
 
-                    } else
-                    // Toast.makeText(MainActivity.this, "Please select Jurisdiction", Toast.LENGTH_SHORT).show();
-                    //Snackbar.make(findViewById(R.id.relative), "Please select Jurisdiction", Snackbar.LENGTH_SHORT).show();
-                    {
+                    } else {
                         Animation shake = AnimationUtils.loadAnimation(MainActivity.this, R.anim.shake);
 
                         if (radioGroup.getCheckedRadioButtonId() == -1) {
@@ -174,10 +172,25 @@ public class MainActivity extends BaseActivity {
                         if (rg_inOperation.getCheckedRadioButtonId() == -1) {
                             rg_inOperation.startAnimation(shake);
                         }
+
+                        if(TextUtils.isEmpty(gov_scheme_editText.getText())){
+                            Snackbar.make(findViewById(R.id.relative), "Scheme name field is empty", Snackbar.LENGTH_SHORT).show();
+                        }
+
+                        else if(TextUtils.isEmpty(year_editText.getText())){
+                            Snackbar.make(findViewById(R.id.relative), "Year Initiated field is empty", Snackbar.LENGTH_SHORT).show();
+                        }
+
+                        else if(TextUtils.isEmpty(motive_editText.getText())){
+                            Snackbar.make(findViewById(R.id.relative), "Motives field is empty", Snackbar.LENGTH_SHORT).show();
+                        }
+
+                        else if(TextUtils.isEmpty(bene_editText.getText())){
+                            Snackbar.make(findViewById(R.id.relative), "Beneficiaries field is empty", Snackbar.LENGTH_SHORT).show();
+                        }
                     }
 
                 } else {
-                    //Toast.makeText(getApplicationContext(), "No Internet", Toast.LENGTH_SHORT).show();
                     Snackbar.make(findViewById(R.id.relative), "No Internet", Snackbar.LENGTH_SHORT).show();
 
                 }

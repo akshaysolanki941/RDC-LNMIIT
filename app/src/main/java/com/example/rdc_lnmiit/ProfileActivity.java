@@ -1,7 +1,9 @@
 package com.example.rdc_lnmiit;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
@@ -9,6 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.util.TypedValue;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -25,6 +31,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class ProfileActivity extends BaseActivity {
 
     Toolbar toolbar;
@@ -36,11 +44,14 @@ public class ProfileActivity extends BaseActivity {
     Dialog loading_dialog;
     ImageView loading_gif_imageView;
     BottomNavigationView bottomNavigationView;
+    ArrayList<UsersModel> usersModelArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        usersModelArrayList = new ArrayList<>();
 
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -72,13 +83,13 @@ public class ProfileActivity extends BaseActivity {
         });
 
         auth = FirebaseAuth.getInstance();
-        FirebaseUser user = auth.getCurrentUser();
+        final FirebaseUser user = auth.getCurrentUser();
 
         if(user != null){
             uid = user.getUid();
         } else{
-            Toast.makeText(this, "Please Register First", Toast.LENGTH_LONG).show();
-            startActivity(new Intent(ProfileActivity.this, RegisterActivity.class));
+            Toast.makeText(this, "Please Login First", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
             finish();
         }
 
@@ -108,10 +119,16 @@ public class ProfileActivity extends BaseActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()){
-                    UsersModel u = ds.getValue(UsersModel.class);
 
-                    tv_userName.setText(u.getUserName());
-                    tv_email.setText(u.getEmail());
+                    /*if(usersModelArrayList != null){
+                        usersModelArrayList.clear();
+                    }*/
+
+                   // usersModelArrayList.add(ds.getValue(UsersModel.class));
+
+                    //tv_userName.setText(usersModelArrayList.get(0).getUserName());
+                    //tv_userName.setText(u.getUserName());
+                    tv_email.setText(user.getEmail());
 
                     loading_dialog.dismiss();
                 }
@@ -120,7 +137,7 @@ public class ProfileActivity extends BaseActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(ProfileActivity.this, "Enable to fetch data", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProfileActivity.this, "Enable to fetch data. " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -136,5 +153,45 @@ public class ProfileActivity extends BaseActivity {
     @Override
     protected void onCreation(@Nullable Bundle savedInstanceState) {
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu_sign_out, menu);
+
+        MenuItem item = menu.getItem(0);
+        SpannableString s = new SpannableString("Sign Out");
+        s.setSpan(new ForegroundColorSpan(getAttributeColor(getApplicationContext(), R.attr.text)), 0, s.length(), 0);
+        item.setTitle(s);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.menu_signOut:
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(this, CategoriesActivity.class);
+                startActivity(intent);
+                finish();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    public static int getAttributeColor(Context context, int attributeId) {
+        TypedValue typedValue = new TypedValue();
+        context.getTheme().resolveAttribute(attributeId, typedValue, true);
+        int colorRes = typedValue.resourceId;
+        int color = -1;
+        try {
+            color = context.getResources().getColor(colorRes);
+        } catch (Resources.NotFoundException e) {
+            // Log.w(TAG, "Not found color resource by id: " + colorRes);
+        }
+        return color;
     }
 }

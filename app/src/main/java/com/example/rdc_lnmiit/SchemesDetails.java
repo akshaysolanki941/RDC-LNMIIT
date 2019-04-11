@@ -8,8 +8,11 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,6 +25,7 @@ public class SchemesDetails extends BaseActivity {
     Toolbar toolbar;
     SharedPreferences sharedPref;
     String currentTheme;
+    CardView cv_mile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +86,7 @@ public class SchemesDetails extends BaseActivity {
         setSupportActionBar((Toolbar) findViewById(R.id.detail_toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        cv_mile = (CardView) findViewById(R.id.cv_mile);
         year = (TextView) findViewById(R.id.year);
         centralorstate = (TextView) findViewById(R.id.centralorstate);
         bene = (TextView) findViewById(R.id.bene);
@@ -93,7 +98,13 @@ public class SchemesDetails extends BaseActivity {
         centralorstate.setText(data.getRg_value());
         bene.setText(data.getBene());
         motive.setText(data.getMotive());
-        mile.setText(data.getMile());
+
+        if(!TextUtils.isEmpty(data.getMile())) {
+            mile.setText(data.getMile());
+        } else{
+            cv_mile.getLayoutParams().height = 0;
+            cv_mile.setVisibility(View.GONE);
+        }
         Glide.with(this).load(data.getPicURL()).placeholder(R.drawable.placeholder).into(logoImageView);
     }
 

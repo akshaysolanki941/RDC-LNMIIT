@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -152,12 +153,14 @@ public class SchemesActivity extends BaseActivity {
             @Override
             protected void populateViewHolder(final Holder holder, Data model, final int position) {
 
-                if(model.getRg_inOperation().equals(YES))
-                    holder.scheme_name.setText(model.getScheme());
+                if(model != null) {
+                    if (model.getRg_inOperation().equals(YES))
+                        holder.scheme_name.setText(model.getScheme());
 
-                else {
-                    holder.itemView.getLayoutParams().height = 0;
-                    holder.itemView.setVisibility(View.GONE);
+                    else {
+                        holder.itemView.getLayoutParams().height = 0;
+                        holder.itemView.setVisibility(View.GONE);
+                    }
                 }
 
                 loading_dialog.dismiss();
@@ -165,8 +168,6 @@ public class SchemesActivity extends BaseActivity {
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
-                        //showDialog(data_list.get(position));
 
                         Intent intent = new Intent(SchemesActivity.this, SchemesDetails.class);
                         intent.putExtra("SchemesData", data_list.get(position));

@@ -1,16 +1,25 @@
 package com.example.rdc_lnmiit;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -26,6 +35,9 @@ public class RegisterActivity extends BaseActivity {
     Button btn_register;
     FirebaseAuth firebaseAuth;
     DatabaseReference databaseRef;
+    Dialog loading_dialog;
+    ImageView loading_gif_imageView;
+    CardView c1, c2, c3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +48,10 @@ public class RegisterActivity extends BaseActivity {
         email_edittext = (EditText) findViewById(R.id.email_edittext);
         pwd_edittext = (EditText) findViewById(R.id.pwd_edittext);
         btn_register = (Button) findViewById(R.id.btn_register);
+        c1 = (CardView) findViewById(R.id.c1);
+        c2 = (CardView) findViewById(R.id.c2);
+        c3 = (CardView) findViewById(R.id.c3);
+        loading_dialog = new Dialog(this);
 
         firebaseAuth = FirebaseAuth.getInstance();
         databaseRef = FirebaseDatabase.getInstance().getReference("Profile");
@@ -44,11 +60,26 @@ public class RegisterActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
-                registerUser();
+                if (!TextUtils.isEmpty(name_edittext.getText()) && !TextUtils.isEmpty(email_edittext.getText()) && !TextUtils.isEmpty(pwd_edittext.getText())) {
+                    registerUser();
+                } else {
+                    Animation shake = AnimationUtils.loadAnimation(RegisterActivity.this, R.anim.shake);
+
+                    if (TextUtils.isEmpty(name_edittext.getText())) {
+                        c1.startAnimation(shake);
+                    }
+
+                    if (TextUtils.isEmpty(email_edittext.getText())) {
+                        c2.startAnimation(shake);
+                    }
+
+                    if (TextUtils.isEmpty(pwd_edittext.getText())) {
+                        c3.startAnimation(shake);
+                    }
+                }
 
             }
         });
-
     }
 
     @Override
@@ -57,6 +88,15 @@ public class RegisterActivity extends BaseActivity {
     }
 
     public void registerUser() {
+
+        loading_dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        loading_dialog.setContentView(R.layout.loading_dialog);
+        loading_gif_imageView = (ImageView) loading_dialog.findViewById(R.id.loading_gif_imageView);
+
+        Glide.with(getApplicationContext()).load(R.drawable.loading).placeholder(R.drawable.loading).into(loading_gif_imageView);
+        loading_dialog.setCanceledOnTouchOutside(false);
+        loading_dialog.setCancelable(false);
+        loading_dialog.show();
 
         final String email = email_edittext.getText().toString();
         String pwd = pwd_edittext.getText().toString();
@@ -81,12 +121,14 @@ public class RegisterActivity extends BaseActivity {
                             finish();
 
                         } else {
+                            loading_dialog.dismiss();
                             Toast.makeText(RegisterActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                         }
                     }
-                }) .addOnFailureListener(this, new OnFailureListener() {
+                }).addOnFailureListener(this, new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+                loading_dialog.dismiss();
                 Toast.makeText(RegisterActivity.this, "Failed to register: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

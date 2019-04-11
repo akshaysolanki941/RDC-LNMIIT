@@ -12,54 +12,13 @@
         android:background="?attr/background">
 
         <android.support.v7.widget.CardView
-            android:id="@+id/c1"
+            android:id="@+id/cv_loginEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="200dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
-            android:elevation="10dp"
-            android:padding="15dp"
-            app:cardCornerRadius="8dp">
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="?attr/cardBackground"
-                android:padding="5dp">
-
-                <TextView
-                    android:id="@+id/t"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:fontFamily="@font/ubuntu_bold"
-                    android:text="Name:"
-                    android:textColor="?attr/text"
-                    android:textSize="20sp" />
-
-                <EditText
-                    android:id="@+id/name_edittext"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_toEndOf="@+id/t"
-                    android:background="@drawable/text_bg"
-                    android:padding="5dp"
-                    android:textColor="?attr/editText"
-                    android:textSize="20sp" />
-
-            </RelativeLayout>
-
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/c2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/c1"
-            android:layout_margin="8dp"
             android:elevation="10dp"
             android:padding="15dp"
             app:cardCornerRadius="8dp">
@@ -81,13 +40,13 @@
                     android:textSize="20sp" />
 
                 <EditText
-                    android:id="@+id/email_edittext"
+                    android:id="@+id/login_email_edittext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/t1"
                     android:background="@drawable/text_bg"
-                    android:inputType="textEmailAddress"
                     android:layout_marginLeft="8dp"
+                    android:inputType="textEmailAddress"
                     android:padding="5dp"
                     android:textColor="?attr/editText"
                     android:textSize="20sp" />
@@ -97,10 +56,10 @@
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
-            android:id="@+id/c3"
+            android:id="@+id/cv_loginPwd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/c2"
+            android:layout_below="@+id/cv_loginEmail"
             android:layout_margin="8dp"
             android:elevation="10dp"
             android:padding="15dp"
@@ -123,14 +82,14 @@
                     android:textSize="20sp" />
 
                 <EditText
-                    android:id="@+id/pwd_edittext"
+                    android:id="@+id/login_pwd_edittext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/t2"
                     android:background="@drawable/text_bg"
                     android:inputType="textPassword"
-                    android:padding="5dp"
                     android:layout_marginLeft="8dp"
+                    android:padding="5dp"
                     android:textColor="?attr/editText"
                     android:textSize="20sp" />
 
@@ -139,16 +98,28 @@
         </android.support.v7.widget.CardView>
 
         <Button
-            android:id="@+id/btn_register"
+            android:id="@+id/btn_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/c3"
+            android:layout_below="@+id/cv_loginPwd"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="40dp"
             android:background="@drawable/btn_bg"
-            android:text="Register"
+            android:text="Login"
             android:textColor="?attr/addBtn_text" />
 
+        <TextView
+            android:id="@+id/register_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btn_login"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/overpass_light"
+            android:text="Don't have an account, Register"
+            android:textColor="?attr/text"
+            android:textSize="15sp" />
 
     </RelativeLayout>
 
