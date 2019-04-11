@@ -11,4 +11,5 @@
     <attr name="addData_bg" format="reference" />
     <attr name="addBtn_text" format="reference" />
     <attr name="picSelect_btn_text" format="reference" />
+    <attr name="toolbarTheme" format="reference"/>
 </resources>

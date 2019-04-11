@@ -18,5 +18,9 @@
         <item name="android:fontFamily">@font/ubuntu_regular</item>
     </style>
 
+    <style name="toolbarTheme_Light" parent="ThemeOverlay.AppCompat.Light"/>
+    
+    <style name="toolbarTheme_Dark" parent="ThemeOverlay.AppCompat"/>
+
 
 </resources>

@@ -43,6 +43,7 @@ dependencies {
     implementation('com.crashlytics.sdk.android:crashlytics:2.9.9') {
         transitive = "true"
     }
+    implementation 'com.github.ivbaranov:materialfavoritebutton:0.1.5'
 
 }
 

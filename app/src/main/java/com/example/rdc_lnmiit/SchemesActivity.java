@@ -55,6 +55,7 @@ public class SchemesActivity extends BaseActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Select Scheme");
         toolbar.setTitleTextAppearance(this, R.style.toolbar_title_font);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         YES = "YES";
 
@@ -189,25 +190,9 @@ public class SchemesActivity extends BaseActivity {
 
     }
 
-    /*public void showDialog(Data d){
-
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        Fragment prev = getSupportFragmentManager().findFragmentByTag("dialog");
-        if (prev != null) {
-            ft.remove(prev);
-        }
-        ft.addToBackStack(null);
-
-        DialogFragment dialogFragment = new SchemeDialog();
-
-        ((SchemeDialog) dialogFragment).dialog_year.setText(d.getYear());
-        ((SchemeDialog) dialogFragment).dialog_centralorstate.setText(d.getRg_value());
-        ((SchemeDialog) dialogFragment).dialog_bene.setText(d.getBene());
-        ((SchemeDialog) dialogFragment).dialog_motive.setText(d.getMotive());
-        ((SchemeDialog) dialogFragment).dialog_mile.setText(d.getMile());
-
-        dialogFragment.show(ft, "dialog");
-
-    }*/
-
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
 }

@@ -109,6 +109,7 @@ public class ProfileActivity extends BaseActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("My Profile");
         toolbar.setTitleTextAppearance(this, R.style.toolbar_title_font);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         tv_userName = (TextView) findViewById(R.id.tv_userName);
         tv_email = (TextView) findViewById(R.id.tv_email);
@@ -180,6 +181,12 @@ public class ProfileActivity extends BaseActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 
     public static int getAttributeColor(Context context, int attributeId) {

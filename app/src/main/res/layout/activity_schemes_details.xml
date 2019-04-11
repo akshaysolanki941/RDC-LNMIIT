@@ -60,6 +60,42 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="8dp"
+                    android:background="?attr/cardBackground"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/ubuntu_regular"
+                        android:id="@+id/bk"
+                        android:text="Bookmark this scheme"
+                        android:layout_centerVertical="true"
+                        android:textColor="?attr/text"
+                        android:textSize="20sp" />
+
+                    <com.github.ivbaranov.mfb.MaterialFavoriteButton
+                        android:id="@+id/mfb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/bk"
+                        android:layout_marginLeft="135dp"
+                        android:layout_centerVertical="true"
+                        app:mfb_animate_favorite="true"
+                        app:mfb_animate_unfavorite="true"
+                        app:mfb_bounce_duration="300"
+                        app:mfb_color="black"
+                        app:mfb_rotation_angle="360"
+                        app:mfb_rotation_duration="400"
+                        app:mfb_size="53"
+                        app:mfb_type="star" />
+
+                </RelativeLayout>
+
+
                 <android.support.v7.widget.CardView
                     android:id="@+id/card_year"
                     android:layout_width="wrap_content"
