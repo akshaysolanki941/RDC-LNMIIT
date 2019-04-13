@@ -107,31 +107,59 @@ public class RegisterActivity extends BaseActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            FirebaseUser user = firebaseAuth.getCurrentUser();
+                            final FirebaseUser user = firebaseAuth.getCurrentUser();
 
-                            String uid = user.getUid();
+                            user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        String uid = user.getUid();
 
-                            UsersModel usersModel = new UsersModel(uid, userName, email);
+                                        UsersModel usersModel = new UsersModel(uid, userName, email);
 
-                            databaseRef.child(uid).setValue(usersModel);
-
-                            Toast.makeText(RegisterActivity.this, "User Registered Successfully.", Toast.LENGTH_SHORT).show();
-
-                            startActivity(new Intent(RegisterActivity.this, ProfileActivity.class));
-                            finish();
+                                        databaseRef.child(uid).setValue(usersModel);
+                                        firebaseAuth.signOut();
+                                        startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                                        Toast.makeText(RegisterActivity.this, "Verification Email sent to " + user.getEmail(), Toast.LENGTH_LONG).show();
+                                        finish();
+                                    } else {
+                                        Toast.makeText(RegisterActivity.this, "Verification Email NOT sent.", Toast.LENGTH_LONG).show();
+                                        overridePendingTransition(0, 0);
+                                        finish();
+                                        overridePendingTransition(0, 0);
+                                        startActivity(getIntent());
+                                    }
+                                }
+                            });
 
                         } else {
                             loading_dialog.dismiss();
-                            Toast.makeText(RegisterActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterActivity.this, "Registeration failed.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }).addOnFailureListener(this, new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 loading_dialog.dismiss();
+
+                overridePendingTransition(0, 0);
+                finish();
+                overridePendingTransition(0, 0);
+                startActivity(getIntent());
+
                 Toast.makeText(RegisterActivity.this, "Failed to register: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        Intent a = new Intent(RegisterActivity.this, CategoriesActivity.class);
+        a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(a);
+        finish();
 
     }
 }

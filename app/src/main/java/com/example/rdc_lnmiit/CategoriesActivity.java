@@ -32,12 +32,13 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 
-public class CategoriesActivity extends BaseActivity{
+public class CategoriesActivity extends BaseActivity {
 
     RecyclerView rv;
     DatabaseReference mDatabase;
@@ -47,13 +48,19 @@ public class CategoriesActivity extends BaseActivity{
     Toolbar toolbar;
     SharedPreferences sharedPref;
     Switch aSwitch;
+    FirebaseAuth firebaseAuth;
+    String adminEmailAK, adminEmailRG;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+        firebaseAuth = FirebaseAuth.getInstance();
+        adminEmailAK = "akshaysolanki941@gmail.com";
+        adminEmailRG = "gupta.rohan@live.com";
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel("MyNotifications", "MyNotifications", NotificationManager.IMPORTANCE_DEFAULT);
 
             NotificationManager manager = getSystemService(NotificationManager.class);
@@ -78,7 +85,7 @@ public class CategoriesActivity extends BaseActivity{
 
         connected();
 
-        aSwitch = (Switch)findViewById(R.id.switch_darkMode);
+        aSwitch = (Switch) findViewById(R.id.switch_darkMode);
 
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -100,6 +107,7 @@ public class CategoriesActivity extends BaseActivity{
 
                     case R.id.menu_profile:
                         startActivity(new Intent(CategoriesActivity.this, ProfileActivity.class));
+                        finish();
                         break;
                 }
 
@@ -144,9 +152,6 @@ public class CategoriesActivity extends BaseActivity{
     @Override
     protected void onPostResume() {
         super.onPostResume();
-
-       //restartActivity();
-
     }
 
     @Override
@@ -161,6 +166,14 @@ public class CategoriesActivity extends BaseActivity{
         getMenuInflater().inflate(R.menu.menu1, menu);
 
         MenuItem item = menu.getItem(0);
+
+        if (firebaseAuth.getCurrentUser() != null && (firebaseAuth.getCurrentUser().getEmail().equals(adminEmailAK) || firebaseAuth.getCurrentUser().getEmail().equals(adminEmailRG))) {
+            item.setVisible(true);
+        } else {
+            item.setVisible(false);
+        }
+
+
         SpannableString s = new SpannableString("Add Data");
         s.setSpan(new ForegroundColorSpan(getAttributeColor(getApplicationContext(), R.attr.text)), 0, s.length(), 0);
         item.setTitle(s);
@@ -187,7 +200,7 @@ public class CategoriesActivity extends BaseActivity{
         NetworkInfo networkInfo = cm.getActiveNetworkInfo();
 
         if (networkInfo != null && networkInfo.isConnected()) {
-           // Toast.makeText(this, "ONLINE", Toast.LENGTH_SHORT).show();
+            // Toast.makeText(this, "ONLINE", Toast.LENGTH_SHORT).show();
             Snackbar.make(findViewById(R.id.coo), "Online", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
         } else {
             //Toast.makeText(this, "OFFLINE", Toast.LENGTH_SHORT).show();

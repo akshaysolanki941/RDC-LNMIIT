@@ -86,6 +86,17 @@ public class LoginActivity extends BaseActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        Intent a = new Intent(LoginActivity.this, CategoriesActivity.class);
+        a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(a);
+        finish();
+
+    }
+
     public void loginUser(){
 
         loading_dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -103,19 +114,37 @@ public class LoginActivity extends BaseActivity {
         mAuth.signInWithEmailAndPassword(email, pwd).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
+                if(authResult.getUser().isEmailVerified()) {
 
-                Toast.makeText(LoginActivity.this, "Logged in successfully", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
-                finish();
+                    Toast.makeText(LoginActivity.this, "Logged in successfully", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
+                    finish();
+                } else{
+                    FirebaseAuth.getInstance().signOut();
+                    loading_dialog.dismiss();
+                    Toast.makeText(LoginActivity.this, "Email not verified. Please verify it first.", Toast.LENGTH_LONG).show();
+                    overridePendingTransition(0, 0);
+                    finish();
+                    overridePendingTransition(0, 0);
+                    startActivity(getIntent());
+                }
 
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 loading_dialog.dismiss();
-                Toast.makeText(LoginActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                overridePendingTransition(0, 0);
+                finish();
+                overridePendingTransition(0, 0);
+                startActivity(getIntent());
+
+                Toast.makeText(LoginActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
+
+
 
     }
 }

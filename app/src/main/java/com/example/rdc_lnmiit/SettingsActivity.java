@@ -26,20 +26,11 @@ public class SettingsActivity extends BaseActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        /*new SimplePrefs.Builder()
-                .setPrefsName("myapppreference")
-                .setContext(this)
-                .setMode(MODE_PRIVATE)
-                .setDefaultUse(false)
-                .build();*/
-
-        //sharedPref = context.getSharedPreferences("currentTheme", 0);
-        //editor = sharedPref.edit();
-
         toolbar = (Toolbar) findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Settings");
         toolbar.setTitleTextAppearance(this, R.style.toolbar_title_font);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         switch_darkMode = (Switch) findViewById(R.id.switch_darkMode);
 
@@ -83,5 +74,14 @@ public class SettingsActivity extends BaseActivity{
     @Override
     protected void onCreation(@Nullable Bundle savedInstanceState) {
 
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        Intent a = new Intent(SettingsActivity.this, CategoriesActivity.class);
+        a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(a);
+        finish();
+        return true;
     }
 }

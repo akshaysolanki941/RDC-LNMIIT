@@ -45,11 +45,15 @@ public class ProfileActivity extends BaseActivity {
     ImageView loading_gif_imageView;
     BottomNavigationView bottomNavigationView;
     ArrayList<UsersModel> usersModelArrayList;
+    String adminEmailAK, adminEmailRG;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        adminEmailAK = "akshaysolanki941@gmail.com";
+        adminEmailRG = "gupta.rohan@live.com";
 
         usersModelArrayList = new ArrayList<>();
 
@@ -85,6 +89,8 @@ public class ProfileActivity extends BaseActivity {
         auth = FirebaseAuth.getInstance();
         final FirebaseUser user = auth.getCurrentUser();
 
+
+
         if(user != null){
             uid = user.getUid();
         } else{
@@ -107,13 +113,26 @@ public class ProfileActivity extends BaseActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("My Profile");
+
+        if (auth.getCurrentUser() != null && (auth.getCurrentUser().getEmail().equals(adminEmailAK) || auth.getCurrentUser().getEmail().equals(adminEmailRG))) {
+            getSupportActionBar().setTitle("My Profile (ADMIN)");
+        } else {
+            getSupportActionBar().setTitle("My Profile");
+        }
+
+
         toolbar.setTitleTextAppearance(this, R.style.toolbar_title_font);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         tv_userName = (TextView) findViewById(R.id.tv_userName);
         tv_email = (TextView) findViewById(R.id.tv_email);
         cv_bookmarked_schemes = (CardView) findViewById(R.id.cv_bookmarked_schemes);
+
+        if (auth.getCurrentUser() != null && (auth.getCurrentUser().getEmail().equals(adminEmailAK) || auth.getCurrentUser().getEmail().equals(adminEmailRG))) {
+
+        } else {
+
+        }
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -128,7 +147,7 @@ public class ProfileActivity extends BaseActivity {
                    // usersModelArrayList.add(ds.getValue(UsersModel.class));
 
                     //tv_userName.setText(usersModelArrayList.get(0).getUserName());
-                    //tv_userName.setText(u.getUserName());
+                    tv_userName.setText(user.getDisplayName());
                     tv_email.setText(user.getEmail());
 
                     loading_dialog.dismiss();
@@ -185,8 +204,22 @@ public class ProfileActivity extends BaseActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
+
+        Intent a = new Intent(ProfileActivity.this, CategoriesActivity.class);
+        a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(a);
         finish();
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent a = new Intent(ProfileActivity.this, CategoriesActivity.class);
+        a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(a);
+        finish();
+
     }
 
     public static int getAttributeColor(Context context, int attributeId) {

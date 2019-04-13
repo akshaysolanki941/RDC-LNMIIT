@@ -101,30 +101,42 @@
         android:layout_margin="10dp"
         android:elevation="10dp"
         android:padding="10dp"
+        app:cardBackgroundColor="?attr/cardBackground"
         app:cardCornerRadius="10dp">
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:background="?attr/cardBackground"
-            android:padding="6dp">
+            android:background="?attr/cardBackground">
 
-            <TextView
-                android:id="@+id/tv2"
-                android:layout_width="357dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:fontFamily="@font/ubuntu_regular"
-                android:text="Bookmarked Schemes"
-                android:textColor="?attr/text"
-                android:textSize="23dp" />
+                android:background="?attr/cardBackground"
+                android:orientation="horizontal"
+                android:padding="6dp"
+                android:weightSum="2">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_toEndOf="@+id/tv2"
-                android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
-                android:tint="?attr/text" />
+                <TextView
+                    android:id="@+id/tv2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".2"
+                    android:fontFamily="@font/ubuntu_regular"
+                    android:text="Bookmarked Schemes"
+                    android:textColor="?attr/text"
+                    android:textSize="23dp" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:layout_weight="1.8"
+                    android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
+                    android:tint="?attr/text" />
+
+            </LinearLayout>
 
         </RelativeLayout>
 
