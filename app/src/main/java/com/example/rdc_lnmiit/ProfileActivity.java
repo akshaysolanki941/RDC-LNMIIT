@@ -2,11 +2,13 @@ package com.example.rdc_lnmiit;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -194,10 +196,29 @@ public class ProfileActivity extends BaseActivity {
 
         switch (item.getItemId()) {
             case R.id.menu_signOut:
-                FirebaseAuth.getInstance().signOut();
+
+                new AlertDialog.Builder(this)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Sign Out")
+                        .setMessage("Are you sure you want to sign out?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                FirebaseAuth.getInstance().signOut();
+                                Intent intent = new Intent(ProfileActivity.this, CategoriesActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+
+               /* FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(this, CategoriesActivity.class);
                 startActivity(intent);
-                finish();
+                finish();*/
         }
 
         return super.onOptionsItemSelected(item);

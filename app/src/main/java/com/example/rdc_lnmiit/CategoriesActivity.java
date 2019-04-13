@@ -9,6 +9,7 @@ import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -50,6 +51,7 @@ public class CategoriesActivity extends BaseActivity {
     Switch aSwitch;
     FirebaseAuth firebaseAuth;
     String adminEmailAK, adminEmailRG;
+    boolean doubleBackToExitPressedOnce;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,8 +158,21 @@ public class CategoriesActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        finish();
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
     }
 
     @Override
@@ -220,4 +235,6 @@ public class CategoriesActivity extends BaseActivity {
         }
         return color;
     }
+
+
 }
