@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/background"
-    tools:context=".SchemesActivity">
+    tools:context=".BookmarkedSchemesActivity"
+    android:background="?attr/background">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolBar"
@@ -16,10 +16,10 @@
         app:titleTextColor="?attr/text"></android.support.v7.widget.Toolbar>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_scheme"
+        android:id="@+id/recycler_bookmarked_scheme"
+        android:layout_above="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/bottom_navigation"
         android:layout_below="@+id/toolBar"></android.support.v7.widget.RecyclerView>
 
     <android.support.design.widget.BottomNavigationView
@@ -29,10 +29,11 @@
         android:layout_alignParentBottom="true"
         android:background="?attr/background"
         app:itemIconTint="?attr/text"
-        app:itemTextColor="?attr/text"
         app:labelVisibilityMode="labeled"
+        app:itemTextColor="?attr/text"
         app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
         app:layout_scrollFlags="scroll|enterAlways|snap"
         app:menu="@menu/bottom_navigation_view_menu"></android.support.design.widget.BottomNavigationView>
+
 
 </RelativeLayout>

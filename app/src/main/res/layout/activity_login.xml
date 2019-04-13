@@ -4,7 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterActivity">
+    tools:context=".RegisterActivity"
+    android:background="?attr/background">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -43,9 +48,9 @@
                     android:id="@+id/login_email_edittext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
                     android:layout_toEndOf="@+id/t1"
                     android:background="@drawable/text_bg"
-                    android:layout_marginLeft="8dp"
                     android:inputType="textEmailAddress"
                     android:padding="5dp"
                     android:textColor="?attr/editText"
@@ -85,10 +90,10 @@
                     android:id="@+id/login_pwd_edittext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
                     android:layout_toEndOf="@+id/t2"
                     android:background="@drawable/text_bg"
                     android:inputType="textPassword"
-                    android:layout_marginLeft="8dp"
                     android:padding="5dp"
                     android:textColor="?attr/editText"
                     android:textSize="20sp" />
@@ -121,6 +126,32 @@
             android:textColor="?attr/text"
             android:textSize="15sp" />
 
+        <TextView
+            android:id="@+id/or_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/register_textView"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/overpass_light"
+            android:textStyle="bold"
+            android:text="OR"
+            android:textColor="?attr/text"
+            android:textSize="18sp" />
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/google_signIn_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/or_textView"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginRight="6dp"></com.google.android.gms.common.SignInButton>
+
     </RelativeLayout>
+
+    </ScrollView>
 
 </RelativeLayout>

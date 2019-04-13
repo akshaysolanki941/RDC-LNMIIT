@@ -132,6 +132,7 @@ public class RegisterActivity extends BaseActivity {
                                 }
                             });
 
+
                         } else {
                             loading_dialog.dismiss();
                             Toast.makeText(RegisterActivity.this, "Registeration failed.", Toast.LENGTH_SHORT).show();

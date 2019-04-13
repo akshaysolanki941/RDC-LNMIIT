@@ -44,6 +44,7 @@ dependencies {
         transitive = "true"
     }
     implementation 'com.github.ivbaranov:materialfavoritebutton:0.1.5'
+    implementation 'com.google.android.gms:play-services-auth:15.0.1'
 
 }
 

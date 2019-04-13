@@ -164,7 +164,8 @@ public class ProfileActivity extends BaseActivity {
         cv_bookmarked_schemes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: 09-04-2019 intent to bookmarked schemes list activity
+                startActivity(new Intent(ProfileActivity.this, BookmarkedSchemesActivity.class));
+                finish();
             }
         });
 
