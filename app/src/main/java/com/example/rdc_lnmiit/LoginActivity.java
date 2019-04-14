@@ -38,8 +38,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends BaseActivity {
 
@@ -241,13 +244,27 @@ public class LoginActivity extends BaseActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
 
-                            String uid = task.getResult().getUser().getUid();
-                            String userName = task.getResult().getUser().getDisplayName();
-                            String email = task.getResult().getUser().getEmail();
+                            final String uid = task.getResult().getUser().getUid();
+                            final String userName = task.getResult().getUser().getDisplayName();
+                            final String email = task.getResult().getUser().getEmail();
 
-                            UsersModel usersModel = new UsersModel(uid, userName, email);
+                            databaseRef.orderByChild("uid").equalTo(uid).addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    if (!dataSnapshot.exists()) {
 
-                            databaseRef.child(uid).setValue(usersModel);
+                                        UsersModel usersModel = new UsersModel(uid, userName, email);
+
+                                        databaseRef.child(uid).setValue(usersModel);
+
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
 
                             Toast.makeText(LoginActivity.this, "Logged in successfully", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(LoginActivity.this, ProfileActivity.class));

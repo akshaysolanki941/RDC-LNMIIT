@@ -61,19 +61,22 @@
                 android:orientation="vertical">
 
                 <RelativeLayout
+                    android:id="@+id/bookmark_view"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:background="?attr/cardBackground"
-                    android:padding="10dp">
+                    android:padding="6dp">
+
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:id="@+id/bk_tv"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
                         android:fontFamily="@font/ubuntu_regular"
-                        android:id="@+id/bk"
                         android:text="Bookmark this scheme"
-                        android:layout_centerVertical="true"
+                        android:textAlignment="center"
                         android:textColor="?attr/text"
                         android:textSize="20sp" />
 
@@ -81,9 +84,8 @@
                         android:id="@+id/mfb"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toEndOf="@+id/bk"
-                        android:layout_marginLeft="135dp"
-                        android:layout_centerVertical="true"
+                        android:layout_below="@+id/bk_tv"
+                        android:layout_centerHorizontal="true"
                         app:mfb_animate_favorite="true"
                         app:mfb_animate_unfavorite="true"
                         app:mfb_bounce_duration="300"

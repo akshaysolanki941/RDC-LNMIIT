@@ -105,11 +105,6 @@ public class MainActivity extends BaseActivity {
         btn_photo_select = (Button) findViewById(R.id.btn_photo_select);
         scheme_imageView = (ImageView) findViewById(R.id.scheme_imageView);
         rg_inOperation = (RadioGroup) findViewById(R.id.rg_inOperation);
-        add_progressBar = (ProgressBar) findViewById(R.id.add_progressBar);
-        adding = (TextView) findViewById(R.id.adding);
-
-        add_progressBar.setVisibility(View.GONE);
-        adding.setVisibility(View.GONE);
 
         btn_photo_select.setOnClickListener(new View.OnClickListener() {
             @Override

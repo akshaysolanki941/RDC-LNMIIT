@@ -16,24 +16,6 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:titleTextColor="?attr/text"></android.support.v7.widget.Toolbar>
 
-
-    <ProgressBar
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_centerInParent="true"
-        android:id="@+id/add_progressBar"/>
-
-    <TextView
-        android:id="@+id/adding"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/add_progressBar"
-        android:layout_centerInParent="true"
-        android:fontFamily="@font/overpass_semi_bold"
-        android:text="Adding...."
-        android:textColor="?attr/text"
-        android:textSize="25sp"/>
-
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"

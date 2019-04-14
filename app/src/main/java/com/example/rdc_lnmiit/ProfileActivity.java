@@ -46,7 +46,6 @@ public class ProfileActivity extends BaseActivity {
     Dialog loading_dialog;
     ImageView loading_gif_imageView;
     BottomNavigationView bottomNavigationView;
-    ArrayList<UsersModel> usersModelArrayList;
     String adminEmailAK, adminEmailRG;
 
     @Override
@@ -56,8 +55,6 @@ public class ProfileActivity extends BaseActivity {
 
         adminEmailAK = "akshaysolanki941@gmail.com";
         adminEmailRG = "gupta.rohan@live.com";
-
-        usersModelArrayList = new ArrayList<>();
 
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -111,7 +108,7 @@ public class ProfileActivity extends BaseActivity {
         loading_dialog.setCancelable(false);
         loading_dialog.show();
 
-        ref = FirebaseDatabase.getInstance().getReference("/Profile/" + uid);
+        ref = FirebaseDatabase.getInstance().getReference("Profile");
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -130,11 +127,14 @@ public class ProfileActivity extends BaseActivity {
         tv_email = (TextView) findViewById(R.id.tv_email);
         cv_bookmarked_schemes = (CardView) findViewById(R.id.cv_bookmarked_schemes);
 
-        if (auth.getCurrentUser() != null && (auth.getCurrentUser().getEmail().equals(adminEmailAK) || auth.getCurrentUser().getEmail().equals(adminEmailRG))) {
+    }
 
-        } else {
+    @Override
+    protected void onStart() {
+        super.onStart();
 
-        }
+        final FirebaseUser user = auth.getCurrentUser();
+        final String UID = user.getUid();
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -142,14 +142,8 @@ public class ProfileActivity extends BaseActivity {
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()){
 
-                    /*if(usersModelArrayList != null){
-                        usersModelArrayList.clear();
-                    }*/
-
-                   // usersModelArrayList.add(ds.getValue(UsersModel.class));
-
-                    //tv_userName.setText(usersModelArrayList.get(0).getUserName());
                     tv_userName.setText(user.getDisplayName());
+
                     tv_email.setText(user.getEmail());
 
                     loading_dialog.dismiss();
@@ -170,7 +164,6 @@ public class ProfileActivity extends BaseActivity {
                 finish();
             }
         });
-
     }
 
     @Override

@@ -26,8 +26,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class RegisterActivity extends BaseActivity {
 
@@ -113,15 +116,33 @@ public class RegisterActivity extends BaseActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        String uid = user.getUid();
 
-                                        UsersModel usersModel = new UsersModel(uid, userName, email);
+                                        final String uid = user.getUid();
 
-                                        databaseRef.child(uid).setValue(usersModel);
+                                        databaseRef.orderByChild("uid").equalTo(uid).addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                if (!dataSnapshot.exists()) {
+
+                                                    UsersModel usersModel = new UsersModel(uid, userName, email);
+
+                                                    databaseRef.child(uid).setValue(usersModel);
+
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                            }
+                                        });
+
+
                                         firebaseAuth.signOut();
                                         startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                                         Toast.makeText(RegisterActivity.this, "Verification Email sent to " + user.getEmail(), Toast.LENGTH_LONG).show();
                                         finish();
+
                                     } else {
                                         Toast.makeText(RegisterActivity.this, "Verification Email NOT sent.", Toast.LENGTH_LONG).show();
                                         overridePendingTransition(0, 0);
