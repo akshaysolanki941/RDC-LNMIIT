@@ -1,16 +1,22 @@
 package com.example.rdc_lnmiit;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import com.example.rdc_lnmiit.Models.SchemeDataModel;
+import com.example.rdc_lnmiit.RVHolder.Holder;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
+
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -24,7 +30,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class BookmarkedSchemesActivity extends BaseActivity {
+public class BookmarkedSchemesActivity extends AppCompatActivity {
 
     Toolbar toolbar;
     BottomNavigationView bottomNavigationView;
@@ -32,14 +38,22 @@ public class BookmarkedSchemesActivity extends BaseActivity {
     DatabaseReference databaseFAV;
     FirebaseAuth mAuth;
     String UID;
-    ArrayList<Data> data_list;
+    ArrayList<SchemeDataModel> schemeData_Model_list;
+    TextView toolbar_title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bookmarked_schemes);
 
-        data_list = new ArrayList<>();
+        toolbar = (Toolbar) findViewById(R.id.toolBar);
+        toolbar_title = (TextView) findViewById(R.id.toolbar_title);
+        setSupportActionBar(toolbar);
+        toolbar_title.setText("Bookmarked Schemes");
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        schemeData_Model_list = new ArrayList<>();
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
@@ -53,45 +67,6 @@ public class BookmarkedSchemesActivity extends BaseActivity {
         databaseFAV = FirebaseDatabase.getInstance().getReference("/Profile/" + UID + "/bookmarks");
         databaseFAV.keepSynced(true);
 
-        toolbar = (Toolbar) findViewById(R.id.toolBar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Bookmarked Schemes");
-        toolbar.setTitleTextAppearance(this, R.style.toolbar_title_font);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-
-                switch (menuItem.getItemId()){
-                    case R.id.menu_home:
-                        Intent a = new Intent(BookmarkedSchemesActivity.this, CategoriesActivity.class);
-                        a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(a);
-                        finish();
-                        break;
-
-                    case R.id.menu_aboutUs:
-                        BottomSheetDialogAboutUs bottomSheetDialogAboutUs = new BottomSheetDialogAboutUs();
-                        bottomSheetDialogAboutUs.show(getSupportFragmentManager(), "AboutUsBottomSheet");
-                        break;
-
-                    case R.id.menu_settings:
-                        Intent c = new Intent(BookmarkedSchemesActivity.this, SettingsActivity.class);
-                        startActivity(c);
-                        finish();
-                        break;
-
-                    case R.id.menu_profile:
-                        startActivity(new Intent(BookmarkedSchemesActivity.this, ProfileActivity.class));
-                        finish();
-                        break;
-                }
-
-                return false;
-            }
-        });
     }
 
     @Override
@@ -103,8 +78,8 @@ public class BookmarkedSchemesActivity extends BaseActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()){
-                    //Data d = ds.getValue(Data.class);
-                    data_list.add(ds.getValue(Data.class));
+                    //SchemeDataModel d = ds.getValue(SchemeDataModel.class);
+                    schemeData_Model_list.add(ds.getValue(SchemeDataModel.class));
                 }
 
             }
@@ -115,10 +90,10 @@ public class BookmarkedSchemesActivity extends BaseActivity {
             }
         });
 
-        FirebaseRecyclerAdapter<Data, Holder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Data, Holder>
-                (Data.class, R.layout.scheme_list, Holder.class, databaseFAV) {
+        FirebaseRecyclerAdapter<SchemeDataModel, Holder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<SchemeDataModel, Holder>
+                (SchemeDataModel.class, R.layout.scheme_list, Holder.class, databaseFAV) {
             @Override
-            protected void populateViewHolder(final Holder holder, Data model, final int position) {
+            protected void populateViewHolder(final Holder holder, SchemeDataModel model, final int position) {
 
                 holder.scheme_name.setText(model.getScheme());
 
@@ -126,8 +101,8 @@ public class BookmarkedSchemesActivity extends BaseActivity {
                     @Override
                     public void onClick(View v) {
 
-                        Intent intent = new Intent(BookmarkedSchemesActivity.this, SchemesDetails.class);
-                        intent.putExtra("SchemesData", data_list.get(position));
+                        Intent intent = new Intent(BookmarkedSchemesActivity.this, SchemesDetailsActivity.class);
+                        intent.putExtra("SchemesData", schemeData_Model_list.get(position));
 
                         startActivity(intent);
 
@@ -140,13 +115,7 @@ public class BookmarkedSchemesActivity extends BaseActivity {
     }
 
     @Override
-    protected void onCreation(@Nullable Bundle savedInstanceState) {
-
-    }
-
-    @Override
     public boolean onSupportNavigateUp() {
-        startActivity(new Intent(BookmarkedSchemesActivity.this, ProfileActivity.class));
         finish();
         return true;
     }
@@ -154,7 +123,6 @@ public class BookmarkedSchemesActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        startActivity(new Intent(BookmarkedSchemesActivity.this, ProfileActivity.class));
         finish();
     }
 }

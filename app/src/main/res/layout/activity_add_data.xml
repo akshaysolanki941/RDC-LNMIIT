@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relative"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/cardBackground"
+    tools:context=".AddDataActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/toolbarBg"
+        android:theme="@style/ThemeOverlay.AppCompat.Light">
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ubuntu_regular" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolBar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/addData_bg"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/category_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="Category:"
+                android:textColor="?attr/text"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/category_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/category_textView"
+                android:entries="@array/Categories"
+                android:popupBackground="?attr/background"
+                android:popupTheme="@style/mySpinnerItemStyle"
+                android:spinnerMode="dropdown"></Spinner>
+
+            <TextView
+                android:id="@+id/gov_scheme_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/category_spinner"
+                android:layout_marginTop="20dp"
+                android:text="Government Scheme:"
+                android:textColor="?attr/text"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/gov_scheme_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/gov_scheme_textView"
+                android:background="@drawable/text_bg"
+                android:hint="Scheme Name"
+                android:padding="5dp"
+                android:textColor="?attr/editText"
+                android:textColorHint="#A29F9F" />
+
+            <TextView
+                android:id="@+id/year_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/gov_scheme_editText"
+                android:layout_marginTop="25dp"
+                android:text="Year Initiated:"
+                android:textColor="?attr/text"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/year_editText"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/year_textView"
+                android:background="@drawable/text_bg"
+                android:hint="Year"
+                android:inputType="number"
+                android:padding="4dp"
+                android:textAlignment="center"
+                android:textColor="?attr/editText"
+                android:textColorHint="#A29F9F" />
+
+            <TextView
+                android:id="@+id/motive_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/year_editText"
+                android:layout_marginTop="20dp"
+                android:text="Motive:"
+                android:textColor="?attr/text"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/motive_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/motive_textView"
+                android:background="@drawable/text_bg"
+                android:hint="Write point wise"
+                android:minHeight="60dp"
+                android:padding="5dp"
+                android:textColor="?attr/editText"
+                android:textColorHint="#A29F9F" />
+
+            <TextView
+                android:id="@+id/bene_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/motive_editText"
+                android:layout_marginTop="20dp"
+                android:text="Beneficiaries:"
+                android:textColor="?attr/text"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/bene_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/bene_textView"
+                android:background="@drawable/text_bg"
+                android:hint="Write point wise all those who are benefitted with it"
+                android:minHeight="60dp"
+                android:paddingLeft="6dp"
+                android:paddingTop="4dp"
+                android:paddingRight="6dp"
+                android:paddingBottom="4dp"
+                android:textColor="?attr/editText"
+                android:textColorHint="#A29F9F" />
+
+            <TextView
+                android:id="@+id/juri_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/bene_editText"
+                android:layout_marginTop="20dp"
+                android:text="Jurisdiction:"
+                android:textColor="?attr/text"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/radio_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/juri_textView"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <RadioButton
+                    android:id="@+id/rb_central"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Central Government"
+                    android:textColor="?attr/text"
+                    android:textSize="17sp" />
+
+                <RadioButton
+                    android:id="@+id/rb_state"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="State Government"
+                    android:textColor="?attr/text"
+                    android:textSize="17sp" />
+
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/inOperation_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/radio_group"
+                android:layout_marginTop="20dp"
+                android:text="In Operation:"
+                android:textColor="?attr/text"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/rg_inOperation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/inOperation_textView"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <RadioButton
+                    android:id="@+id/rb_yes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="YES"
+                    android:textColor="?attr/text"
+                    android:textSize="17sp" />
+
+                <RadioButton
+                    android:id="@+id/rb_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="NO"
+                    android:textColor="?attr/text"
+                    android:textSize="17sp" />
+
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/mile_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rg_inOperation"
+                android:layout_marginTop="15dp"
+                android:text="Milestones Achieved:"
+                android:textColor="?attr/text"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/mile_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/mile_textView"
+                android:background="@drawable/text_bg"
+                android:hint="If Any, write point wise"
+                android:minHeight="60dp"
+                android:padding="5dp"
+                android:textColor="?attr/editText"
+                android:textColorHint="#A29F9F" />
+
+            <TextView
+                android:id="@+id/pic_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/mile_editText"
+                android:layout_marginTop="15dp"
+                android:text="Select Relevant Photo:"
+                android:textColor="?attr/text"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btn_photo_select"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/pic_textView"
+                android:layout_marginTop="35dp"
+                android:background="@drawable/scheme_pic_btn"
+                android:text="Select Photo"
+                android:textColor="?attr/picSelect_btn_text"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/scheme_imageView"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/pic_textView"
+                android:layout_marginTop="15dp" />
+
+            <Button
+                android:id="@+id/btn_submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/scheme_imageView"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/btn_bg"
+                android:text="add"
+                android:textColor="?attr/addBtn_text" />
+
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

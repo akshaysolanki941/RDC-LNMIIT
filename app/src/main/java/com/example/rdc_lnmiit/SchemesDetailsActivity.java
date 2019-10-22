@@ -2,16 +2,18 @@ package com.example.rdc_lnmiit;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+
+import com.example.rdc_lnmiit.Models.SchemeDataModel;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.Toolbar;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -28,7 +30,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class SchemesDetails extends BaseActivity {
+public class SchemesDetailsActivity extends AppCompatActivity {
 
     TextView year, centralorstate, bene, motive, mile;
     BottomNavigationView bottomNavigationView;
@@ -63,46 +65,12 @@ public class SchemesDetails extends BaseActivity {
             bookmark_view.setVisibility(View.GONE);
         }
 
-
-        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-
-                switch (menuItem.getItemId()) {
-                    case R.id.menu_home:
-                        Intent a = new Intent(SchemesDetails.this, CategoriesActivity.class);
-                        a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(a);
-                        finish();
-                        break;
-
-                    case R.id.menu_aboutUs:
-                        BottomSheetDialogAboutUs bottomSheetDialogAboutUs = new BottomSheetDialogAboutUs();
-                        bottomSheetDialogAboutUs.show(getSupportFragmentManager(), "AboutUsBottomSheet");
-                        break;
-
-                    case R.id.menu_settings:
-                        Intent c = new Intent(SchemesDetails.this, SettingsActivity.class);
-                        startActivity(c);
-                        finish();
-                        break;
-
-                    case R.id.menu_profile:
-                        startActivity(new Intent(SchemesDetails.this, ProfileActivity.class));
-                        break;
-                }
-
-                return false;
-            }
-        });
-
         Intent i = getIntent();
 
-        final Data data = i.getParcelableExtra("SchemesData");
+        final SchemeDataModel schemeDataModel = i.getParcelableExtra("SchemesData");
 
         CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.detail_collapsing_toolbar);
-        collapsingToolbarLayout.setTitle(data.getScheme());
+        collapsingToolbarLayout.setTitle(schemeDataModel.getScheme());
         collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
         setSupportActionBar((Toolbar) findViewById(R.id.detail_toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -128,7 +96,7 @@ public class SchemesDetails extends BaseActivity {
         }
 
         if(databasefav != null) {
-            databasefav.orderByChild("scheme").equalTo(data.getScheme()).addValueEventListener(new ValueEventListener() {
+            databasefav.orderByChild("scheme").equalTo(schemeDataModel.getScheme()).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
@@ -147,37 +115,37 @@ public class SchemesDetails extends BaseActivity {
             });
         }
 
-        year.setText(data.getYear());
-        centralorstate.setText(data.getRg_value());
-        bene.setText(data.getBene());
-        motive.setText(data.getMotive());
+        year.setText(schemeDataModel.getYear());
+        centralorstate.setText(schemeDataModel.getRg_value());
+        bene.setText(schemeDataModel.getBene());
+        motive.setText(schemeDataModel.getMotive());
 
-        if (!TextUtils.isEmpty(data.getMile())) {
-            mile.setText(data.getMile());
+        if (!TextUtils.isEmpty(schemeDataModel.getMile())) {
+            mile.setText(schemeDataModel.getMile());
         } else {
             cv_mile.getLayoutParams().height = 0;
             cv_mile.setVisibility(View.GONE);
         }
-        Glide.with(this).load(data.getPicURL()).placeholder(R.drawable.placeholder).into(logoImageView);
+        Glide.with(SchemesDetailsActivity.this).load(schemeDataModel.getPicURL()).placeholder(R.drawable.placeholder).into(logoImageView);
 
         materialFavoriteButton.setOnFavoriteChangeListener(new MaterialFavoriteButton.OnFavoriteChangeListener() {
             @Override
             public void onFavoriteChanged(MaterialFavoriteButton buttonView, boolean favorite) {
                 if (favorite) {
-                    String FAV_schemeName = data.getScheme();
+                    String FAV_schemeName = schemeDataModel.getScheme();
                     String FAV_year = year.getText().toString();
                     String FAV_centralorstate = centralorstate.getText().toString();
                     String FAV_bene = bene.getText().toString();
                     String FAV_motive = motive.getText().toString();
                     String FAV_mile = mile.getText().toString();
-                    String FAV_picURL = data.getPicURL();
-                    String FAV_inOperation = data.getRg_inOperation();
+                    String FAV_picURL = schemeDataModel.getPicURL();
+                    String FAV_inOperation = schemeDataModel.getRg_inOperation();
 
-                    Data d = new Data(FAV_schemeName, FAV_year, FAV_motive, FAV_bene, FAV_mile, FAV_centralorstate, FAV_picURL, FAV_inOperation);
+                    SchemeDataModel d = new SchemeDataModel(FAV_schemeName, FAV_year, FAV_motive, FAV_bene, FAV_mile, FAV_centralorstate, FAV_picURL, FAV_inOperation);
 
                     databasefav.child(FAV_schemeName).setValue(d);
                     bookmarked_tv.setText("Bookmarked");
-                    Toast.makeText(SchemesDetails.this, "Bookmarked!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SchemesDetailsActivity.this, "Bookmarked!", Toast.LENGTH_SHORT).show();
 
                     SharedPreferences.Editor editor = getSharedPreferences("MyPref", MODE_PRIVATE).edit();
                     editor.putBoolean("isFav", true);
@@ -185,7 +153,7 @@ public class SchemesDetails extends BaseActivity {
                 }
 
                 else{
-                    databasefav.child(data.getScheme()).removeValue();
+                    databasefav.child(schemeDataModel.getScheme()).removeValue();
                     bookmarked_tv.setText("Bookmark this Scheme");
                     SharedPreferences.Editor editor = getSharedPreferences("MyPref", MODE_PRIVATE).edit();
                     editor.putBoolean("isFav", false);
@@ -193,11 +161,6 @@ public class SchemesDetails extends BaseActivity {
                 }
             }
         });
-    }
-
-    @Override
-    protected void onCreation(@Nullable Bundle savedInstanceState) {
-
     }
 
     @Override

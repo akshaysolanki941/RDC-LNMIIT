@@ -1,17 +1,17 @@
-package com.example.rdc_lnmiit;
+package com.example.rdc_lnmiit.Models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Data implements Parcelable {
+public class SchemeDataModel implements Parcelable {
 
     String /*id, */ scheme, year, motive, bene, mile, rg_value, picURL, rg_inOperation;
 
-    public Data(){
+    public SchemeDataModel(){
 
     }
 
-    public Data(/*String id, */ String scheme, String year, String motive, String bene, String mile, String rg_value, String picURL, String rg_inOperation) {
+    public SchemeDataModel(/*String id, */ String scheme, String year, String motive, String bene, String mile, String rg_value, String picURL, String rg_inOperation) {
         //this.id = id;
         this.scheme = scheme;
         this.year = year;
@@ -27,7 +27,7 @@ public class Data implements Parcelable {
         return id;
     }*/
 
-    protected Data(Parcel in) {
+    protected SchemeDataModel(Parcel in) {
         scheme = in.readString();
         year = in.readString();
         motive = in.readString();
@@ -38,15 +38,15 @@ public class Data implements Parcelable {
         rg_inOperation = in.readString();
     }
 
-    public static final Creator<Data> CREATOR = new Creator<Data>() {
+    public static final Creator<SchemeDataModel> CREATOR = new Creator<SchemeDataModel>() {
         @Override
-        public Data createFromParcel(Parcel in) {
-            return new Data(in);
+        public SchemeDataModel createFromParcel(Parcel in) {
+            return new SchemeDataModel(in);
         }
 
         @Override
-        public Data[] newArray(int size) {
-            return new Data[size];
+        public SchemeDataModel[] newArray(int size) {
+            return new SchemeDataModel[size];
         }
     };
 

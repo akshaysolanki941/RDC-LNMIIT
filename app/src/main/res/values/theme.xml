@@ -21,7 +21,7 @@
 
     </style>
 
-    <style name="AppTheme.Light" parent="Theme.AppCompat.NoActionBar">
+    <style name="AppTheme.Light" parent="Theme.AppCompat.Light.NoActionBar">
 
         <item name="colorPrimary">@color/Light_colorPrimary</item>
         <item name="colorPrimaryDark">@color/Light_colorPrimaryDark</item>

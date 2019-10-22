@@ -2,13 +2,14 @@ package com.example.rdc_lnmiit;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
@@ -16,10 +17,10 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.rdc_lnmiit.Models.UsersModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -32,7 +33,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class RegisterActivity extends BaseActivity {
+public class RegisterActivity extends AppCompatActivity {
 
     EditText name_edittext, email_edittext, pwd_edittext;
     Button btn_register;
@@ -83,11 +84,6 @@ public class RegisterActivity extends BaseActivity {
 
             }
         });
-    }
-
-    @Override
-    protected void onCreation(@Nullable Bundle savedInstanceState) {
-
     }
 
     public void registerUser() {
@@ -178,7 +174,7 @@ public class RegisterActivity extends BaseActivity {
     public void onBackPressed() {
         super.onBackPressed();
 
-        Intent a = new Intent(RegisterActivity.this, CategoriesActivity.class);
+        Intent a = new Intent(RegisterActivity.this, MainActivity.class);
         a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(a);
         finish();

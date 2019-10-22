@@ -1,4 +1,4 @@
-package com.example.rdc_lnmiit;
+package com.example.rdc_lnmiit.Models;
 
 public class CategoryModel {
 

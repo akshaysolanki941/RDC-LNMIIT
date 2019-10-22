@@ -1,4 +1,4 @@
-package com.example.rdc_lnmiit;
+package com.example.rdc_lnmiit.Models;
 
 import android.os.Parcel;
 import android.os.Parcelable;

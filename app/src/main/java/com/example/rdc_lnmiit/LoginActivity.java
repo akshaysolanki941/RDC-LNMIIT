@@ -2,14 +2,8 @@ package com.example.rdc_lnmiit;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
@@ -21,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.rdc_lnmiit.Models.UsersModel;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -36,15 +31,19 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-public class LoginActivity extends BaseActivity {
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+
+public class LoginActivity extends AppCompatActivity {
 
     CardView cv_loginEmail, cv_loginPwd;
     Button btn_login;
@@ -131,17 +130,11 @@ public class LoginActivity extends BaseActivity {
         });
 
     }
-
-    @Override
-    protected void onCreation(@Nullable Bundle savedInstanceState) {
-
-    }
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();
 
-        Intent a = new Intent(LoginActivity.this, CategoriesActivity.class);
+        Intent a = new Intent(LoginActivity.this, MainActivity.class);
         a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(a);
         finish();
@@ -168,7 +161,7 @@ public class LoginActivity extends BaseActivity {
                 if(authResult.getUser().isEmailVerified()) {
 
                     Toast.makeText(LoginActivity.this, "Logged in successfully", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     finish();
                 } else{
                     FirebaseAuth.getInstance().signOut();
@@ -248,15 +241,28 @@ public class LoginActivity extends BaseActivity {
                             final String userName = task.getResult().getUser().getDisplayName();
                             final String email = task.getResult().getUser().getEmail();
 
-                            databaseRef.orderByChild("uid").equalTo(uid).addValueEventListener(new ValueEventListener() {
+                            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Profile");
+                            Query queryRef = ref.orderByChild("uid").equalTo(uid);
+                            ValueEventListener listener = new ValueEventListener() {
+
                                 @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    if (!dataSnapshot.exists()) {
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    if (dataSnapshot.exists()) {
+                                        for (DataSnapshot child : dataSnapshot.getChildren()) {
+                                            String uid = child.getValue(UsersModel.class).getUid();
+                                            Toast.makeText(LoginActivity.this, "Logged in successfully", Toast.LENGTH_SHORT).show();
+                                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                            finish();
+                                            break; // exit for loop, we only want one match
+                                        }
+                                    } else {
+                                        Toast.makeText(LoginActivity.this, "Logged in successfully", Toast.LENGTH_SHORT).show();
 
-                                        UsersModel usersModel = new UsersModel(uid, userName, email);
+                                        UsersModel model = new UsersModel(uid, userName, email);
+                                        databaseRef.child(uid).setValue(model);
 
-                                        databaseRef.child(uid).setValue(usersModel);
-
+                                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                        finish();
                                     }
                                 }
 
@@ -264,11 +270,8 @@ public class LoginActivity extends BaseActivity {
                                 public void onCancelled(@NonNull DatabaseError databaseError) {
 
                                 }
-                            });
-
-                            Toast.makeText(LoginActivity.this, "Logged in successfully", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
-                            finish();
+                            };
+                            queryRef.addValueEventListener(listener);
                         } else {
                             loading_dialog.dismiss();
                             Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();

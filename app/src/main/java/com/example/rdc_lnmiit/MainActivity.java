@@ -1,279 +1,211 @@
 package com.example.rdc_lnmiit;
 
-import android.app.Activity;
-import android.app.Dialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.media.Image;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.net.Uri;
-import android.provider.MediaStore;
-import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
+import android.graphics.drawable.AnimationDrawable;
+import android.os.Build;
+
+import androidx.annotation.NonNull;
+
+import com.example.rdc_lnmiit.Adapters.MyAdpater;
+import com.example.rdc_lnmiit.Fragments.AboutUsFragment;
+import com.example.rdc_lnmiit.Fragments.CategoryFragment;
+import com.example.rdc_lnmiit.Fragments.DeveloperFragment;
+import com.example.rdc_lnmiit.Fragments.ProfileFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import android.os.Bundle;
-import android.support.v7.app.AppCompatDelegate;
-import android.support.v7.widget.Toolbar;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import android.text.SpannableString;
-import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Spinner;
+import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.FirebaseApp;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.mikepenz.materialdrawer.AccountHeader;
+import com.mikepenz.materialdrawer.AccountHeaderBuilder;
+import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.DrawerBuilder;
+import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
-import java.io.IOException;
-import java.net.URI;
-import java.util.UUID;
+import java.util.ArrayList;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends AppCompatActivity {
 
-    EditText gov_scheme_editText;
-    EditText year_editText;
-    EditText motive_editText;
-    EditText bene_editText;
-    EditText mile_editText;
-    Button btn_submit, btn_photo_select;
-    ImageView scheme_imageView, loading_gif_imageView;
-    RadioGroup radioGroup, rg_inOperation;
-    Spinner category_spinner;
+    RecyclerView rv;
+    DatabaseReference mDatabase;
+    ArrayList<String> categories;
+    MyAdpater adapter;
+    BottomNavigationView bottomNavigationView;
     Toolbar toolbar;
     SharedPreferences sharedPref;
-    String currentTheme;
-    Context context;
-    Uri selectedPhotoUri;
-    ProgressBar add_progressBar;
-    TextView adding;
-    Dialog loading_dialog;
-
-    DatabaseReference databaseReference1; /*databaseReference2*/
-    StorageReference storageReference;
-
+    Switch aSwitch;
+    FirebaseAuth firebaseAuth;
+    String adminEmailAK, adminEmailRG;
+    boolean doubleBackToExitPressedOnce;
+    public TextView toolbar_title;
+    Drawer result;
+    AccountHeader headerResult;
+    AnimationDrawable animationDrawable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        firebaseAuth = FirebaseAuth.getInstance();
+        adminEmailAK = "akshaysolanki941@gmail.com";
+
         toolbar = (Toolbar) findViewById(R.id.toolBar);
+        toolbar_title = (TextView) findViewById(R.id.toolbar_title);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Add Data");
-        toolbar.setTitleTextAppearance(this, R.style.toolbar_title_font);
+        toolbar_title.setText("Select Category");
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        FirebaseApp.initializeApp(this);
+        animationDrawable = (AnimationDrawable) toolbar.getBackground();
+        animationDrawable.setEnterFadeDuration(2000);
+        animationDrawable.setExitFadeDuration(3000);
 
-        loading_dialog = new Dialog(this);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel("MyNotifications", "MyNotifications", NotificationManager.IMPORTANCE_DEFAULT);
 
-        databaseReference1 = FirebaseDatabase.getInstance().getReference("Data");
-
-        gov_scheme_editText = (EditText) findViewById(R.id.gov_scheme_editText);
-        year_editText = (EditText) findViewById(R.id.year_editText);
-        motive_editText = (EditText) findViewById(R.id.motive_editText);
-        bene_editText = (EditText) findViewById(R.id.bene_editText);
-        mile_editText = (EditText) findViewById(R.id.mile_editText);
-        btn_submit = (Button) findViewById(R.id.btn_submit);
-        radioGroup = (RadioGroup) findViewById(R.id.radio_group);
-        category_spinner = (Spinner) findViewById(R.id.category_spinner);
-        btn_photo_select = (Button) findViewById(R.id.btn_photo_select);
-        scheme_imageView = (ImageView) findViewById(R.id.scheme_imageView);
-        rg_inOperation = (RadioGroup) findViewById(R.id.rg_inOperation);
-
-        btn_photo_select.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent image_intent = new Intent(Intent.ACTION_PICK);
-                image_intent.setType("image/*");
-                startActivityForResult(image_intent, 1);
-            }
-        });
-
-        btn_submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-
-                NetworkInfo networkInfo = cm.getActiveNetworkInfo();
-
-                if (networkInfo != null && networkInfo.isConnected()) {
-
-                    if (radioGroup.getCheckedRadioButtonId() != -1 && rg_inOperation.getCheckedRadioButtonId() != -1 && !TextUtils.isEmpty(gov_scheme_editText.getText()) && !TextUtils.isEmpty(year_editText.getText()) && !TextUtils.isEmpty(motive_editText.getText()) && !TextUtils.isEmpty(bene_editText.getText())) {
-
-                        if(selectedPhotoUri != null) {
-                            loading_dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                            loading_dialog.setContentView(R.layout.loading_dialog);
-                            loading_gif_imageView = (ImageView) loading_dialog.findViewById(R.id.loading_gif_imageView);
-
-                            Glide.with(getApplicationContext()).load(R.drawable.loading).placeholder(R.drawable.loading).into(loading_gif_imageView);
-                            loading_dialog.setCanceledOnTouchOutside(false);
-                            loading_dialog.setCancelable(false);
-                            loading_dialog.show();
-                            String filename = UUID.randomUUID().toString();
-
-                            storageReference = FirebaseStorage.getInstance().getReference("images/" + filename);
-
-                            storageReference.putFile(selectedPhotoUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                @Override
-                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                                    storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                        @Override
-                                        public void onSuccess(Uri uri) {
-                                            addData(uri.toString());
-                                        }
-                                    });
-
-                                }
-                            });
-                        } else{
-                            Animation shake = AnimationUtils.loadAnimation(MainActivity.this, R.anim.shake);
-                            btn_photo_select.startAnimation(shake);
-                        }
-
-                    } else {
-                        Animation shake = AnimationUtils.loadAnimation(MainActivity.this, R.anim.shake);
-
-                        if (radioGroup.getCheckedRadioButtonId() == -1) {
-                            radioGroup.startAnimation(shake);
-                        }
-
-                        if (rg_inOperation.getCheckedRadioButtonId() == -1) {
-                            rg_inOperation.startAnimation(shake);
-                        }
-
-                        if(TextUtils.isEmpty(gov_scheme_editText.getText())){
-                            Snackbar.make(findViewById(R.id.relative), "Scheme name field is empty", Snackbar.LENGTH_SHORT).show();
-                        }
-
-                        else if(TextUtils.isEmpty(year_editText.getText())){
-                            Snackbar.make(findViewById(R.id.relative), "Year Initiated field is empty", Snackbar.LENGTH_SHORT).show();
-                        }
-
-                        else if(TextUtils.isEmpty(motive_editText.getText())){
-                            Snackbar.make(findViewById(R.id.relative), "Motives field is empty", Snackbar.LENGTH_SHORT).show();
-                        }
-
-                        else if(TextUtils.isEmpty(bene_editText.getText())){
-                            Snackbar.make(findViewById(R.id.relative), "Beneficiaries field is empty", Snackbar.LENGTH_SHORT).show();
-                        }
-                    }
-
-                } else {
-                    Snackbar.make(findViewById(R.id.relative), "No Internet", Snackbar.LENGTH_SHORT).show();
-
-                }
-
-
-            }
-        });
-    }
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == 1 && resultCode == Activity.RESULT_OK && data != null) {
-            selectedPhotoUri = data.getData();
-
-            Bitmap bitmap = null;
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedPhotoUri);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            scheme_imageView.setImageBitmap(bitmap);
-
-            btn_photo_select.setAlpha(0);
-
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
         }
 
+        FirebaseMessaging.getInstance().subscribeToTopic("general")
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        String msg = "Successful";
+                        if (!task.isSuccessful()) {
+                            msg = "Failed";
+                        }
+                    }
+                });
+
+        headerResult = new AccountHeaderBuilder()
+                .withActivity(this)
+                .withHeaderBackground(R.drawable.drawable_aa_gradient)
+                .addProfiles(
+                        new ProfileDrawerItem().withName("UBA Cell - LNMIIT").withEmail("उन्नत भारत अभियान").withIcon(getResources().getDrawable(R.drawable.ic_logo_header))
+                )
+                .build();
+
+        PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(1).withName("Categories").withIcon(R.drawable.ic_home_black_24dp);
+        PrimaryDrawerItem item2 = new PrimaryDrawerItem().withIdentifier(2).withName("Profile").withIcon(R.drawable.ic_person_outline_black_24dp);
+        PrimaryDrawerItem item3 = new PrimaryDrawerItem().withIdentifier(3).withName("About us").withIcon(R.drawable.ic_assistant_black_24dp);
+        PrimaryDrawerItem item4 = new PrimaryDrawerItem().withIdentifier(4).withName("Developer").withIcon(R.drawable.ic_code_black_24dp);
+
+
+        result = new DrawerBuilder()
+                .withActivity(this)
+                .withToolbar(toolbar)
+                .withAccountHeader(headerResult)
+                .withActionBarDrawerToggle(true)
+                .addDrawerItems(
+                        item1,
+                        item2,
+                        item3,
+                        item4
+                )
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        // do something with the clicked item :D
+
+                        switch (position) {
+                            case 1:
+                                getSupportFragmentManager()
+                                        .beginTransaction()
+                                        //.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right)
+                                        .replace(R.id.fragment_container, new CategoryFragment(), "categoryfragment")
+                                        .commit();
+                                result.closeDrawer();
+
+                                break;
+
+                            case 2:
+                                getSupportFragmentManager()
+                                        .beginTransaction()
+                                        //.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)
+                                        .replace(R.id.fragment_container, new ProfileFragment(), "profilefragment")
+                                        .commit();
+                                result.closeDrawer();
+                                break;
+
+                            case 3:
+                                getSupportFragmentManager()
+                                        .beginTransaction()
+                                        //.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)
+                                        .replace(R.id.fragment_container, new AboutUsFragment(), "aboutusfragment")
+                                        .commit();
+                                result.closeDrawer();
+                                break;
+
+                            case 4:
+                                getSupportFragmentManager()
+                                        .beginTransaction()
+                                        //.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)
+                                        .replace(R.id.fragment_container, new DeveloperFragment(), "developerfragment")
+                                        .commit();
+                                result.closeDrawer();
+                                break;
+
+                        }
+
+                        return false;
+                    }
+                })
+                .withDisplayBelowStatusBar(true)
+                .build();
+
     }
 
     @Override
-    protected void onCreation(@Nullable Bundle savedInstanceState) {
-
+    public void onBackPressed() {
+        //handle the back press :D close the drawer first and if the drawer is closed close the activity
+        if (result != null && result.isDrawerOpen()) {
+            result.closeDrawer();
+        } else {
+            super.onBackPressed();
+        }
     }
-
-
-    private void addData(String picURL) {
-
-
-
-        String category = category_spinner.getSelectedItem().toString();
-        String scheme = gov_scheme_editText.getText().toString();
-        String year = year_editText.getText().toString();
-        String motive = motive_editText.getText().toString();
-        String bene = bene_editText.getText().toString();
-        String mile = mile_editText.getText().toString();
-        String rg_value = ((RadioButton) findViewById(radioGroup.getCheckedRadioButtonId())).getText().toString();
-        String rg_inOperation_value = ((RadioButton) findViewById(rg_inOperation.getCheckedRadioButtonId())).getText().toString();
-
-        // String id = databaseReference.push().getKey();
-
-
-        CategoryModel categoryModel = new CategoryModel(category);
-
-        // databaseReference2 = FirebaseDatabase.getInstance().getReference(category);
-
-
-        Data data = new Data(/*id, */scheme, year, motive, bene, mile, rg_value, picURL, rg_inOperation_value);
-
-        //databaseReference1.child(category).push().setValue(categoryModel);
-        databaseReference1.child(category).child(scheme).setValue(data);
-
-        gov_scheme_editText.getText().clear();
-        year_editText.getText().clear();
-        motive_editText.getText().clear();
-        bene_editText.getText().clear();
-        mile_editText.getText().clear();
-        radioGroup.clearCheck();
-        rg_inOperation.clearCheck();
-        btn_photo_select.setAlpha(1);
-        scheme_imageView.setImageDrawable(null);
-        loading_dialog.dismiss();
-
-        Snackbar.make(findViewById(R.id.relative), "Data Added", Snackbar.LENGTH_SHORT).show();
-
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        getMenuInflater().inflate(R.menu.menu2, menu);
+        getMenuInflater().inflate(R.menu.menu1, menu);
 
         MenuItem item = menu.getItem(0);
-        SpannableString s = new SpannableString("Show Data");
-        s.setSpan(new ForegroundColorSpan(getAttributeColor(getApplicationContext(), R.attr.text)), 0, s.length(), 0);
+
+        if (firebaseAuth.getCurrentUser() != null && (firebaseAuth.getCurrentUser().getEmail().equals(adminEmailAK))) {
+            item.setVisible(true);
+        } else {
+            item.setVisible(false);
+        }
+
+
+        SpannableString s = new SpannableString("Add Data");
+        //s.setSpan(new ForegroundColorSpan(getAttributeColor(getApplicationContext(), R.attr.text)), 0, s.length(), 0);
         item.setTitle(s);
 
         return super.onCreateOptionsMenu(menu);
@@ -283,19 +215,13 @@ public class MainActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.show_data_menu:
-                Intent intent = new Intent(this, CategoriesActivity.class);
+            case R.id.add_data_menu:
+                Intent intent = new Intent(this, AddDataActivity.class);
                 startActivity(intent);
                 finish();
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        // recreate();
     }
 
     public static int getAttributeColor(Context context, int attributeId) {
@@ -310,4 +236,21 @@ public class MainActivity extends BaseActivity {
         }
         return color;
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (animationDrawable != null && !animationDrawable.isRunning()) {
+            animationDrawable.start();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (animationDrawable != null && animationDrawable.isRunning()) {
+            animationDrawable.stop();
+        }
+    }
+
 }
