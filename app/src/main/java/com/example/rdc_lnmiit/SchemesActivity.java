@@ -3,6 +3,7 @@ package com.example.rdc_lnmiit;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -47,6 +48,7 @@ public class SchemesActivity extends AppCompatActivity {
     String YES;
     Dialog loading_dialog;
     ImageView loading_gif_imageView;
+    AnimationDrawable animationDrawable;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,6 +61,10 @@ public class SchemesActivity extends AppCompatActivity {
         toolbar_title.setText("Select Schemes");
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        animationDrawable = (AnimationDrawable) toolbar.getBackground();
+        animationDrawable.setEnterFadeDuration(2000);
+        animationDrawable.setExitFadeDuration(3000);
 
         YES = "YES";
 
@@ -148,15 +154,24 @@ public class SchemesActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-      //  recreate();
-
-    }
-
-    @Override
     public boolean onSupportNavigateUp() {
         finish();
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (animationDrawable != null && !animationDrawable.isRunning()) {
+            animationDrawable.start();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (animationDrawable != null && animationDrawable.isRunning()) {
+            animationDrawable.stop();
+        }
     }
 }

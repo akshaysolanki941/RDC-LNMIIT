@@ -5,6 +5,7 @@ import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +18,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -42,16 +45,25 @@ public class RegisterActivity extends AppCompatActivity {
     Dialog loading_dialog;
     ImageView loading_gif_imageView;
     CardView c1, c2, c3;
+    RelativeLayout relative_register;
+    AnimationDrawable animationDrawable;
+    TextView login_textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        relative_register = (RelativeLayout)findViewById(R.id.relative_register);
+        animationDrawable = (AnimationDrawable) relative_register.getBackground();
+        animationDrawable.setEnterFadeDuration(2000);
+        animationDrawable.setExitFadeDuration(3000);
+
         name_edittext = (EditText) findViewById(R.id.name_edittext);
         email_edittext = (EditText) findViewById(R.id.email_edittext);
         pwd_edittext = (EditText) findViewById(R.id.pwd_edittext);
         btn_register = (Button) findViewById(R.id.btn_register);
+        login_textView = (TextView) findViewById(R.id.login_textView);
         c1 = (CardView) findViewById(R.id.c1);
         c2 = (CardView) findViewById(R.id.c2);
         c3 = (CardView) findViewById(R.id.c3);
@@ -82,6 +94,14 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 }
 
+            }
+        });
+
+        login_textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                finish();
             }
         });
     }
@@ -173,11 +193,22 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-
-        Intent a = new Intent(RegisterActivity.this, MainActivity.class);
-        a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(a);
         finish();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (animationDrawable != null && !animationDrawable.isRunning()) {
+            animationDrawable.start();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (animationDrawable != null && animationDrawable.isRunning()) {
+            animationDrawable.stop();
+        }
     }
 }

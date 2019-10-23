@@ -2,161 +2,174 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relative_register"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterActivity"
-    android:background="?attr/background">
+    android:background="@drawable/gradient_animation1"
+    tools:context=".RegisterActivity">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="?attr/background">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/c1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="200dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="8dp"
-            android:elevation="10dp"
-            android:padding="15dp"
-            app:cardCornerRadius="8dp">
-
-            <RelativeLayout
+            <androidx.cardview.widget.CardView
+                android:id="@+id/c1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="?attr/cardBackground"
-                android:padding="5dp">
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="200dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+                android:elevation="10dp"
+                android:padding="15dp"
+                app:cardCornerRadius="8dp">
 
-                <TextView
-                    android:id="@+id/t"
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:fontFamily="@font/ubuntu_bold"
-                    android:text="Name:"
-                    android:textColor="?attr/text"
-                    android:textSize="20sp" />
+                    android:background="?attr/cardBackground"
+                    android:padding="5dp">
 
-                <EditText
-                    android:id="@+id/name_edittext"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_toEndOf="@+id/t"
-                    android:background="@drawable/text_bg"
-                    android:padding="5dp"
-                    android:textColor="?attr/editText"
-                    android:textSize="20sp" />
+                    <TextView
+                        android:id="@+id/t"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/ubuntu_bold"
+                        android:text="Name:"
+                        android:textColor="?attr/text"
+                        android:textSize="20sp" />
 
-            </RelativeLayout>
+                    <EditText
+                        android:id="@+id/name_edittext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_toEndOf="@+id/t"
+                        android:background="@drawable/text_bg"
+                        android:padding="5dp"
+                        android:textColor="?attr/editText"
+                        android:textSize="20sp" />
 
-        </androidx.cardview.widget.CardView>
+                </RelativeLayout>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/c2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/c1"
-            android:layout_margin="8dp"
-            android:elevation="10dp"
-            android:padding="15dp"
-            app:cardCornerRadius="8dp">
+            </androidx.cardview.widget.CardView>
 
-            <RelativeLayout
+            <androidx.cardview.widget.CardView
+                android:id="@+id/c2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="?attr/cardBackground"
-                android:padding="5dp">
+                android:layout_below="@+id/c1"
+                android:layout_margin="8dp"
+                android:elevation="10dp"
+                android:padding="15dp"
+                app:cardCornerRadius="8dp">
 
-                <TextView
-                    android:id="@+id/t1"
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:fontFamily="@font/ubuntu_bold"
-                    android:text="Email:"
-                    android:textColor="?attr/text"
-                    android:textSize="20sp" />
+                    android:background="?attr/cardBackground"
+                    android:padding="5dp">
 
-                <EditText
-                    android:id="@+id/email_edittext"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_toEndOf="@+id/t1"
-                    android:background="@drawable/text_bg"
-                    android:inputType="textEmailAddress"
-                    android:layout_marginLeft="8dp"
-                    android:padding="5dp"
-                    android:textColor="?attr/editText"
-                    android:textSize="20sp" />
+                    <TextView
+                        android:id="@+id/t1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/ubuntu_bold"
+                        android:text="Email:"
+                        android:textColor="?attr/text"
+                        android:textSize="20sp" />
 
-            </RelativeLayout>
+                    <EditText
+                        android:id="@+id/email_edittext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_toEndOf="@+id/t1"
+                        android:background="@drawable/text_bg"
+                        android:inputType="textEmailAddress"
+                        android:padding="5dp"
+                        android:textColor="?attr/editText"
+                        android:textSize="20sp" />
 
-        </androidx.cardview.widget.CardView>
+                </RelativeLayout>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/c3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/c2"
-            android:layout_margin="8dp"
-            android:elevation="10dp"
-            android:padding="15dp"
-            app:cardCornerRadius="8dp">
+            </androidx.cardview.widget.CardView>
 
-            <RelativeLayout
+            <androidx.cardview.widget.CardView
+                android:id="@+id/c3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="?attr/cardBackground"
-                android:padding="5dp">
+                android:layout_below="@+id/c2"
+                android:layout_margin="8dp"
+                android:elevation="10dp"
+                android:padding="15dp"
+                app:cardCornerRadius="8dp">
 
-                <TextView
-                    android:id="@+id/t2"
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:fontFamily="@font/ubuntu_bold"
-                    android:text="Password:"
-                    android:textColor="?attr/text"
-                    android:textSize="20sp" />
+                    android:background="?attr/cardBackground"
+                    android:padding="5dp">
 
-                <EditText
-                    android:id="@+id/pwd_edittext"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_toEndOf="@+id/t2"
-                    android:background="@drawable/text_bg"
-                    android:inputType="textPassword"
-                    android:padding="5dp"
-                    android:layout_marginLeft="8dp"
-                    android:textColor="?attr/editText"
-                    android:textSize="20sp" />
+                    <TextView
+                        android:id="@+id/t2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/ubuntu_bold"
+                        android:text="Password:"
+                        android:textColor="?attr/text"
+                        android:textSize="20sp" />
 
-            </RelativeLayout>
+                    <EditText
+                        android:id="@+id/pwd_edittext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_toEndOf="@+id/t2"
+                        android:background="@drawable/text_bg"
+                        android:inputType="textPassword"
+                        android:padding="5dp"
+                        android:textColor="?attr/editText"
+                        android:textSize="20sp" />
 
-        </androidx.cardview.widget.CardView>
+                </RelativeLayout>
 
-        <Button
-            android:id="@+id/btn_register"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/c3"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="40dp"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/btn_bg"
-            android:text="Register"
-            android:textColor="?attr/addBtn_text" />
+            </androidx.cardview.widget.CardView>
+
+            <Button
+                android:id="@+id/btn_register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/c3"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="40dp"
+                android:background="@drawable/btn_bg"
+                android:text="Register"
+                android:textColor="?attr/addBtn_text" />
+
+            <TextView
+                android:id="@+id/login_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btn_register"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/overpass_light"
+                android:text="Already have an account, LOGIN"
+                android:textColor="?attr/text"
+                android:textSize="15sp" />
 
 
-    </RelativeLayout>
+        </RelativeLayout>
 
     </ScrollView>
 

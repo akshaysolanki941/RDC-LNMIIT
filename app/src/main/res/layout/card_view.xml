@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:textAlignment="center"
-                android:background="@drawable/shape1"
+                android:padding="12dp"
                 android:fontFamily="@font/overpass_semi_bold"
                 android:text="Scheme Category Name"
                 android:textColor="?attr/text"

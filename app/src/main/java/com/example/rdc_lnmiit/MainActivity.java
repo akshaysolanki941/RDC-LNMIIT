@@ -15,7 +15,11 @@ import com.example.rdc_lnmiit.Adapters.MyAdpater;
 import com.example.rdc_lnmiit.Fragments.AboutUsFragment;
 import com.example.rdc_lnmiit.Fragments.CategoryFragment;
 import com.example.rdc_lnmiit.Fragments.DeveloperFragment;
+import com.example.rdc_lnmiit.Fragments.NewsFragment;
 import com.example.rdc_lnmiit.Fragments.ProfileFragment;
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetSequence;
+import com.getkeepsafe.taptargetview.TapTargetView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import android.os.Bundle;
@@ -23,6 +27,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
+
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.util.TypedValue;
@@ -42,6 +47,7 @@ import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
+import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
@@ -104,17 +110,17 @@ public class MainActivity extends AppCompatActivity {
 
         headerResult = new AccountHeaderBuilder()
                 .withActivity(this)
-                .withHeaderBackground(R.drawable.drawable_aa_gradient)
+                .withHeaderBackground(R.drawable.gradient1)
                 .addProfiles(
-                        new ProfileDrawerItem().withName("UBA Cell - LNMIIT").withEmail("उन्नत भारत अभियान").withIcon(getResources().getDrawable(R.drawable.ic_logo_header))
+                        new ProfileDrawerItem().withName("UBA Cell - LNMIIT").withEmail("उन्नत भारत अभियान").withIcon(getResources().getDrawable(R.drawable.ic_launcher_web))
                 )
                 .build();
 
         PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(1).withName("Categories").withIcon(R.drawable.ic_home_black_24dp);
         PrimaryDrawerItem item2 = new PrimaryDrawerItem().withIdentifier(2).withName("Profile").withIcon(R.drawable.ic_person_outline_black_24dp);
-        PrimaryDrawerItem item3 = new PrimaryDrawerItem().withIdentifier(3).withName("About us").withIcon(R.drawable.ic_assistant_black_24dp);
-        PrimaryDrawerItem item4 = new PrimaryDrawerItem().withIdentifier(4).withName("Developer").withIcon(R.drawable.ic_code_black_24dp);
-
+        PrimaryDrawerItem item3 = new PrimaryDrawerItem().withIdentifier(3).withName("India News").withIcon(R.drawable.ic_format_align_left_black_24dp);
+        PrimaryDrawerItem item4 = new PrimaryDrawerItem().withIdentifier(4).withName("About us").withIcon(R.drawable.ic_assistant_black_24dp);
+        PrimaryDrawerItem item5 = new PrimaryDrawerItem().withIdentifier(5).withName("Developer").withIcon(R.drawable.ic_code_black_24dp);
 
         result = new DrawerBuilder()
                 .withActivity(this)
@@ -125,7 +131,9 @@ public class MainActivity extends AppCompatActivity {
                         item1,
                         item2,
                         item3,
-                        item4
+                        new DividerDrawerItem(),
+                        item4,
+                        item5
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -156,12 +164,21 @@ public class MainActivity extends AppCompatActivity {
                                 getSupportFragmentManager()
                                         .beginTransaction()
                                         //.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)
+                                        .replace(R.id.fragment_container, new NewsFragment(), "newsfragment")
+                                        .commit();
+                                result.closeDrawer();
+                                break;
+
+                            case 5:
+                                getSupportFragmentManager()
+                                        .beginTransaction()
+                                        //.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)
                                         .replace(R.id.fragment_container, new AboutUsFragment(), "aboutusfragment")
                                         .commit();
                                 result.closeDrawer();
                                 break;
 
-                            case 4:
+                            case 6:
                                 getSupportFragmentManager()
                                         .beginTransaction()
                                         //.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)
@@ -169,7 +186,6 @@ public class MainActivity extends AppCompatActivity {
                                         .commit();
                                 result.closeDrawer();
                                 break;
-
                         }
 
                         return false;
@@ -177,6 +193,59 @@ public class MainActivity extends AppCompatActivity {
                 })
                 .withDisplayBelowStatusBar(true)
                 .build();
+
+
+
+        Boolean firstLoad = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+                .getBoolean("firstLoad", true);
+
+        if (firstLoad) {
+
+            TapTargetView.showFor(this, TapTarget.forToolbarNavigationIcon(toolbar, "Take a look!!")
+                            .cancelable(false)
+                            .tintTarget(true),
+                    new TapTargetView.Listener() {
+                        @Override
+                        public void onTargetClick(TapTargetView view) {
+                            super.onTargetClick(view);
+                            result.openDrawer();
+                        }
+                    });
+
+            getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putBoolean("firstLoad", false).commit();
+
+        }
+
+        /*new TapTargetSequence(this)
+                .targets(
+                        TapTarget.forView(findViewById(R.id.never), "Gonna"),
+                        TapTarget.forView(findViewById(R.id.give), "You", "Up")
+                                .dimColor(android.R.color.never)
+                                .outerCircleColor(R.color.gonna)
+                                .targetCircleColor(R.color.let)
+                                .textColor(android.R.color.you),
+                        TapTarget.forBounds(rickTarget, "Down", ":^)")
+                                .cancelable(false)
+                                .icon(rick))
+                .listener(new TapTargetSequence.Listener() {
+                    // This listener will tell us when interesting(tm) events happen in regards
+                    // to the sequence
+                    @Override
+                    public void onSequenceFinish() {
+                        // Yay
+                    }
+
+                    @Override
+                    public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
+
+                    }
+
+
+                    @Override
+                    public void onSequenceCanceled(TapTarget lastTarget) {
+                        // Boo
+                    }
+                });*/
 
     }
 

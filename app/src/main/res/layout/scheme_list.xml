@@ -25,13 +25,13 @@
 
             <TextView
                 android:id="@+id/scheme_name"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="6dp"
+                android:textAlignment="center"
                 android:fontFamily="@font/overpass_semi_bold"
-                android:padding="5dp"
+                android:padding="6dp"
                 android:text="Scheme Name"
-                android:background="@drawable/shape1"
                 android:textColor="?attr/text"
                 android:textSize="20sp" />
 

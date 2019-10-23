@@ -2,6 +2,7 @@ package com.example.rdc_lnmiit;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,6 +58,8 @@ public class LoginActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 2;
     GoogleApiClient mGoogleApiClient;
     DatabaseReference databaseRef;
+    RelativeLayout relative_login;
+    AnimationDrawable animationDrawable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +80,11 @@ public class LoginActivity extends AppCompatActivity {
                 })
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
+
+        relative_login = (RelativeLayout)findViewById(R.id.relative_login);
+        animationDrawable = (AnimationDrawable) relative_login.getBackground();
+        animationDrawable.setEnterFadeDuration(3000);
+        animationDrawable.setExitFadeDuration(2000);
 
 
         cv_loginEmail = (CardView) findViewById(R.id.cv_loginEmail);
@@ -133,10 +142,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-
-        Intent a = new Intent(LoginActivity.this, MainActivity.class);
-        a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(a);
         finish();
 
     }
@@ -224,6 +229,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 loading_dialog.dismiss();
             }
+            mGoogleApiClient.clearDefaultAccountAndReconnect();
         }
     }
 
@@ -278,7 +284,21 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (animationDrawable != null && !animationDrawable.isRunning()) {
+            animationDrawable.start();
+        }
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (animationDrawable != null && animationDrawable.isRunning()) {
+            animationDrawable.stop();
+        }
     }
 }

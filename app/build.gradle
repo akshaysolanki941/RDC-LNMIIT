@@ -50,6 +50,17 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.1.0'
     implementation 'androidx.navigation:navigation-ui:2.1.0'
 
+    implementation 'com.ogaclejapan.smarttablayout:library:2.0.0@aar'
+    //Optional: see how to use the utility.
+    implementation 'com.ogaclejapan.smarttablayout:utils-v4:2.0.0@aar'
+
+    implementation 'com.squareup.retrofit2:retrofit:2.6.2'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
+
+    implementation 'com.baoyz.pullrefreshlayout:library:1.2.0'
+
+    implementation 'com.getkeepsafe.taptargetview:taptargetview:1.13.0'
+
 }
 
 apply plugin: 'com.google.gms.google-services'

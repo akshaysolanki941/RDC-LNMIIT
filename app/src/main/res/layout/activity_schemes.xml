@@ -11,7 +11,7 @@
         android:id="@+id/toolBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/toolbarBg"
+        android:background="@drawable/gradient_animation"
         android:theme="@style/ThemeOverlay.AppCompat.Light">
 
         <TextView

@@ -37,7 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
@@ -54,7 +54,20 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <TextView
+                android:id="@+id/schemeName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/overpass_semi_bold"
+                android:layout_centerHorizontal="true"
+                android:padding="6dp"
+                android:text="Scheme name"
+                android:textAlignment="center"
+                android:textColor="?attr/text"
+                android:textSize="22sp" />
+
             <LinearLayout
+                android:layout_below="@+id/schemeName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">

@@ -2,9 +2,12 @@ package com.example.rdc_lnmiit;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+
 import androidx.annotation.NonNull;
 
 import com.example.rdc_lnmiit.Models.SchemeDataModel;
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
@@ -13,6 +16,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.appcompat.widget.Toolbar;
+
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -43,7 +47,7 @@ public class SchemesDetailsActivity extends AppCompatActivity {
     FirebaseAuth auth;
     String userUID;
     SharedPreferences sharedPreferences;
-    TextView bookmarked_tv;
+    TextView bookmarked_tv, schemeName;
     RelativeLayout bookmark_view;
 
     @Override
@@ -51,30 +55,30 @@ public class SchemesDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schemes_details);
 
-        bookmark_view = (RelativeLayout) findViewById(R.id.bookmark_view);
-
         auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
+        userUID = user.getUid();
 
-        if (user != null) {
+       /* if (user != null) {
             bookmark_view.setVisibility(View.VISIBLE);
             userUID = user.getUid();
             databasefav = FirebaseDatabase.getInstance().getReference("/Profile/" + userUID + "/bookmarks");
             databasefav.keepSynced(true);
         } else {
             bookmark_view.setVisibility(View.GONE);
-        }
+        }*/
 
         Intent i = getIntent();
-
         final SchemeDataModel schemeDataModel = i.getParcelableExtra("SchemesData");
 
         CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.detail_collapsing_toolbar);
-        collapsingToolbarLayout.setTitle(schemeDataModel.getScheme());
+        collapsingToolbarLayout.setTitle("Scheme Details");
         collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
         setSupportActionBar((Toolbar) findViewById(R.id.detail_toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        bookmark_view = (RelativeLayout) findViewById(R.id.bookmark_view);
+        schemeName = (TextView) findViewById(R.id.schemeName);
         cv_mile = (CardView) findViewById(R.id.cv_mile);
         year = (TextView) findViewById(R.id.year);
         centralorstate = (TextView) findViewById(R.id.centralorstate);
@@ -84,6 +88,8 @@ public class SchemesDetailsActivity extends AppCompatActivity {
         ImageView logoImageView = findViewById(R.id.detail_logo_image_view);
         materialFavoriteButton = findViewById(R.id.mfb);
         bookmarked_tv = (TextView) findViewById(R.id.bk_tv);
+
+        schemeName.setText(schemeDataModel.getScheme());
 
         sharedPreferences = getSharedPreferences("MyPref", MODE_PRIVATE);
         boolean isFAV = sharedPreferences.getBoolean("isFav", false);
@@ -95,7 +101,9 @@ public class SchemesDetailsActivity extends AppCompatActivity {
             bookmarked_tv.setText("Bookmark this Scheme");
         }
 
-        if(databasefav != null) {
+        databasefav = FirebaseDatabase.getInstance().getReference("Profile/" + userUID + "/bookmarks");
+
+        if (databasefav != null) {
             databasefav.orderByChild("scheme").equalTo(schemeDataModel.getScheme()).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -150,9 +158,7 @@ public class SchemesDetailsActivity extends AppCompatActivity {
                     SharedPreferences.Editor editor = getSharedPreferences("MyPref", MODE_PRIVATE).edit();
                     editor.putBoolean("isFav", true);
                     editor.apply();
-                }
-
-                else{
+                } else {
                     databasefav.child(schemeDataModel.getScheme()).removeValue();
                     bookmarked_tv.setText("Bookmark this Scheme");
                     SharedPreferences.Editor editor = getSharedPreferences("MyPref", MODE_PRIVATE).edit();
@@ -161,6 +167,25 @@ public class SchemesDetailsActivity extends AppCompatActivity {
                 }
             }
         });
+
+        Boolean firstLoad = getSharedPreferences("PREFERENCE3", MODE_PRIVATE)
+                .getBoolean("firstLoad", true);
+
+        if (firstLoad) {
+
+            TapTargetView.showFor(this, TapTarget.forView(materialFavoriteButton, "Tap to bookmark this scheme ;)")
+                            .cancelable(false)
+                            .tintTarget(true),
+                    new TapTargetView.Listener() {
+                        @Override
+                        public void onTargetClick(TapTargetView view) {
+                            super.onTargetClick(view);
+                        }
+                    });
+
+            getSharedPreferences("PREFERENCE3", MODE_PRIVATE).edit().putBoolean("firstLoad", false).commit();
+
+        }
     }
 
     @Override
