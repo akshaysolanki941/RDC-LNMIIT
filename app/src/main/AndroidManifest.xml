@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Light">
-        <activity android:name=".BookmarkedSchemesActivity"></activity>
+        <activity android:name=".AddEnrolledSchemeActivity"></activity>
+        <activity android:name=".BookmarkedSchemesActivity" />
         <activity
             android:name=".LoginActivity"
             android:windowSoftInputMode="adjustResize" />
@@ -32,7 +33,7 @@
         </activity>
         <activity
             android:name=".SchemesDetailsActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SchemesActivity"
             android:screenOrientation="portrait" />

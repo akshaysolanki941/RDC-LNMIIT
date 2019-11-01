@@ -2,30 +2,20 @@ package com.example.rdc_lnmiit;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-
-import androidx.annotation.NonNull;
-
-import com.example.rdc_lnmiit.Models.SchemeDataModel;
-import com.getkeepsafe.taptargetview.TapTarget;
-import com.getkeepsafe.taptargetview.TapTargetView;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
-
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.appcompat.widget.Toolbar;
-
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.rdc_lnmiit.Models.SchemeDataModel;
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetView;
 import com.github.ivbaranov.mfb.MaterialFavoriteButton;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -33,6 +23,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 
 public class SchemesDetailsActivity extends AppCompatActivity {
 
@@ -153,7 +148,6 @@ public class SchemesDetailsActivity extends AppCompatActivity {
 
                     databasefav.child(FAV_schemeName).setValue(d);
                     bookmarked_tv.setText("Bookmarked");
-                    Toast.makeText(SchemesDetailsActivity.this, "Bookmarked!", Toast.LENGTH_SHORT).show();
 
                     SharedPreferences.Editor editor = getSharedPreferences("MyPref", MODE_PRIVATE).edit();
                     editor.putBoolean("isFav", true);
@@ -175,13 +169,7 @@ public class SchemesDetailsActivity extends AppCompatActivity {
 
             TapTargetView.showFor(this, TapTarget.forView(materialFavoriteButton, "Tap to bookmark this scheme ;)")
                             .cancelable(false)
-                            .tintTarget(true),
-                    new TapTargetView.Listener() {
-                        @Override
-                        public void onTargetClick(TapTargetView view) {
-                            super.onTargetClick(view);
-                        }
-                    });
+                            .tintTarget(true));
 
             getSharedPreferences("PREFERENCE3", MODE_PRIVATE).edit().putBoolean("firstLoad", false).commit();
 

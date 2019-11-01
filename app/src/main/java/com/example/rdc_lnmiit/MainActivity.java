@@ -8,38 +8,27 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Build;
-
-import androidx.annotation.NonNull;
+import android.os.Bundle;
+import android.text.SpannableString;
+import android.util.TypedValue;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Switch;
+import android.widget.TextView;
 
 import com.example.rdc_lnmiit.Adapters.MyAdpater;
 import com.example.rdc_lnmiit.Fragments.AboutUsFragment;
 import com.example.rdc_lnmiit.Fragments.CategoryFragment;
 import com.example.rdc_lnmiit.Fragments.DeveloperFragment;
+import com.example.rdc_lnmiit.Fragments.EnrollmentsFragment;
 import com.example.rdc_lnmiit.Fragments.NewsFragment;
 import com.example.rdc_lnmiit.Fragments.ProfileFragment;
 import com.getkeepsafe.taptargetview.TapTarget;
-import com.getkeepsafe.taptargetview.TapTargetSequence;
 import com.getkeepsafe.taptargetview.TapTargetView;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.Toolbar;
-
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
-import android.util.TypedValue;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.RelativeLayout;
-import android.widget.Switch;
-import android.widget.TextView;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -53,6 +42,11 @@ import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import java.util.ArrayList;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -119,8 +113,9 @@ public class MainActivity extends AppCompatActivity {
         PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(1).withName("Categories").withIcon(R.drawable.ic_home_black_24dp);
         PrimaryDrawerItem item2 = new PrimaryDrawerItem().withIdentifier(2).withName("Profile").withIcon(R.drawable.ic_person_outline_black_24dp);
         PrimaryDrawerItem item3 = new PrimaryDrawerItem().withIdentifier(3).withName("India News").withIcon(R.drawable.ic_format_align_left_black_24dp);
-        PrimaryDrawerItem item4 = new PrimaryDrawerItem().withIdentifier(4).withName("About us").withIcon(R.drawable.ic_assistant_black_24dp);
-        PrimaryDrawerItem item5 = new PrimaryDrawerItem().withIdentifier(5).withName("Developer").withIcon(R.drawable.ic_code_black_24dp);
+        PrimaryDrawerItem item4 = new PrimaryDrawerItem().withIdentifier(4).withName("My Enrollments").withIcon(R.drawable.ic_note_add_black_24dp);
+        PrimaryDrawerItem item5 = new PrimaryDrawerItem().withIdentifier(5).withName("About us").withIcon(R.drawable.ic_assistant_black_24dp);
+        PrimaryDrawerItem item6 = new PrimaryDrawerItem().withIdentifier(6).withName("Developer").withIcon(R.drawable.ic_code_black_24dp);
 
         result = new DrawerBuilder()
                 .withActivity(this)
@@ -131,9 +126,10 @@ public class MainActivity extends AppCompatActivity {
                         item1,
                         item2,
                         item3,
-                        new DividerDrawerItem(),
                         item4,
-                        item5
+                        new DividerDrawerItem(),
+                        item5,
+                        item6
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -169,7 +165,16 @@ public class MainActivity extends AppCompatActivity {
                                 result.closeDrawer();
                                 break;
 
-                            case 5:
+                            case 4:
+                                getSupportFragmentManager()
+                                        .beginTransaction()
+                                        //.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)
+                                        .replace(R.id.fragment_container, new EnrollmentsFragment(), "enrollmentfragment")
+                                        .commit();
+                                result.closeDrawer();
+                                break;
+
+                            case 6:
                                 getSupportFragmentManager()
                                         .beginTransaction()
                                         //.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)
@@ -178,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
                                 result.closeDrawer();
                                 break;
 
-                            case 6:
+                            case 7:
                                 getSupportFragmentManager()
                                         .beginTransaction()
                                         //.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)
