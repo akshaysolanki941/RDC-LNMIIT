@@ -22,6 +22,7 @@ import com.example.rdc_lnmiit.Fragments.AboutUsFragment;
 import com.example.rdc_lnmiit.Fragments.CategoryFragment;
 import com.example.rdc_lnmiit.Fragments.DeveloperFragment;
 import com.example.rdc_lnmiit.Fragments.EnrollmentsFragment;
+import com.example.rdc_lnmiit.Fragments.GraphFragment;
 import com.example.rdc_lnmiit.Fragments.NewsFragment;
 import com.example.rdc_lnmiit.Fragments.ProfileFragment;
 import com.getkeepsafe.taptargetview.TapTarget;
@@ -114,8 +115,9 @@ public class MainActivity extends AppCompatActivity {
         PrimaryDrawerItem item2 = new PrimaryDrawerItem().withIdentifier(2).withName("Profile").withIcon(R.drawable.ic_person_outline_black_24dp);
         PrimaryDrawerItem item3 = new PrimaryDrawerItem().withIdentifier(3).withName("India News").withIcon(R.drawable.ic_format_align_left_black_24dp);
         PrimaryDrawerItem item4 = new PrimaryDrawerItem().withIdentifier(4).withName("My Enrollments").withIcon(R.drawable.ic_note_add_black_24dp);
-        PrimaryDrawerItem item5 = new PrimaryDrawerItem().withIdentifier(5).withName("About us").withIcon(R.drawable.ic_assistant_black_24dp);
-        PrimaryDrawerItem item6 = new PrimaryDrawerItem().withIdentifier(6).withName("Developer").withIcon(R.drawable.ic_code_black_24dp);
+        PrimaryDrawerItem item5 = new PrimaryDrawerItem().withIdentifier(5).withName("Graph").withIcon(R.drawable.ic_trending_up_black_24dp);
+        PrimaryDrawerItem item6 = new PrimaryDrawerItem().withIdentifier(6).withName("About us").withIcon(R.drawable.ic_assistant_black_24dp);
+        PrimaryDrawerItem item7 = new PrimaryDrawerItem().withIdentifier(7).withName("Developer").withIcon(R.drawable.ic_code_black_24dp);
 
         result = new DrawerBuilder()
                 .withActivity(this)
@@ -124,19 +126,20 @@ public class MainActivity extends AppCompatActivity {
                 .withActionBarDrawerToggle(true)
                 .addDrawerItems(
                         item1,
-                        item2,
                         item3,
                         item4,
+                        item2,
                         new DividerDrawerItem(),
                         item5,
-                        item6
+                        new DividerDrawerItem(),
+                        item6,
+                        item7
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         // do something with the clicked item :D
-
-                        switch (position) {
+                        switch ((int) drawerItem.getIdentifier()) {
                             case 1:
                                 getSupportFragmentManager()
                                         .beginTransaction()
@@ -174,6 +177,16 @@ public class MainActivity extends AppCompatActivity {
                                 result.closeDrawer();
                                 break;
 
+                            case 5:
+                                getSupportFragmentManager()
+                                        .beginTransaction()
+                                        //.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)
+                                        .replace(R.id.fragment_container, new GraphFragment(), "graphfragment")
+                                        .commit();
+                                result.closeDrawer();
+                                break;
+
+
                             case 6:
                                 getSupportFragmentManager()
                                         .beginTransaction()
@@ -183,6 +196,7 @@ public class MainActivity extends AppCompatActivity {
                                 result.closeDrawer();
                                 break;
 
+
                             case 7:
                                 getSupportFragmentManager()
                                         .beginTransaction()
@@ -191,6 +205,7 @@ public class MainActivity extends AppCompatActivity {
                                         .commit();
                                 result.closeDrawer();
                                 break;
+
                         }
 
                         return false;
@@ -198,7 +213,6 @@ public class MainActivity extends AppCompatActivity {
                 })
                 .withDisplayBelowStatusBar(true)
                 .build();
-
 
 
         Boolean firstLoad = getSharedPreferences("PREFERENCE", MODE_PRIVATE)

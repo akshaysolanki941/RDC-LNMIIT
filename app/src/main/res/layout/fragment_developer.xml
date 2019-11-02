@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/background"
+    android:clickable="true"
+    tools:context=".Fragments.DeveloperFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/circleImageView"
+                android:layout_width="125dp"
+                android:layout_height="130dp"
+                android:layout_gravity="center_horizontal"
+                android:rotation="90"
+                android:src="@drawable/me"
+                app:civ_border_color="?attr/text"
+                app:civ_border_width="1dp" />
+
+            <TextView
+                android:id="@+id/m"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="@font/overpass_semi_bold"
+                android:padding="6dp"
+                android:text="AKSHAY SOLANKI"
+                android:textColor="?attr/text"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/n"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="@font/overpass_extralight"
+                android:padding="6dp"
+                android:text="Android Developer"
+                android:textColor="?attr/text"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/gmail_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="@font/overpass_extralight"
+                android:padding="6dp"
+                android:singleLine="true"
+                android:text="akshaysolanki941@gmail.com"
+                android:textColor="#205088"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/contact_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="@font/overpass_extralight"
+                android:padding="6dp"
+                android:text="+91-8233623549"
+                android:textColor="#205088"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:layout_weight="3"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/linkedin_icon"
+                    android:layout_width="10dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/linkedin" />
+
+                <ImageView
+                    android:id="@+id/insta_icon"
+                    android:layout_width="10dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/instagram" />
+
+                <ImageView
+                    android:id="@+id/fb_icon"
+                    android:layout_width="10dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/facebook" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</FrameLayout>

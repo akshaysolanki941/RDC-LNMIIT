@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/background"
+    android:clickable="true"
+    android:orientation="vertical"
+    android:padding="15dp">
+
+    <TextView
+        android:id="@+id/tv_whichVillage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:fontFamily="@font/overpass_semi_bold"
+        android:padding="6dp"
+        android:text="Tell us your village name:"
+        android:textAlignment="center"
+        android:textColor="?attr/text"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/et_village_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_whichVillage"
+        android:layout_margin="10dp"
+        android:background="@drawable/text_bg2"
+        android:hint="Village Name"
+        android:padding="5dp"
+        android:textColor="?attr/editText"
+        android:textColorHint="#A29F9F" />
+
+    <Button
+        android:id="@+id/btn_villageName_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/et_village_name"
+        android:layout_margin="12dp"
+        android:background="@drawable/logo_bg"
+        android:elevation="10dp"
+        android:text="Submit"
+        android:textColor="@color/blue" />
+
+</RelativeLayout>
